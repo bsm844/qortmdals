@@ -1,0 +1,4368 @@
+<!doctype html>
+<html lang="ko"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>면접 코치 — 실전 맞춤 모의면접</title>
+    <meta name="description" content="지원하는 회사나 대학교의 면접 정보를 정리해 맞춤형 모의면접과 구체적인 피드백을 제공합니다.">
+    <meta property="og:title" content="면접 코치 — 실전 맞춤 모의면접">
+    <meta property="og:description" content="지원하는 회사나 대학교의 면접 정보를 정리해 맞춤형 모의면접과 구체적인 피드백을 제공합니다.">
+    <meta property="og:type" content="website">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&amp;family=Noto+Sans+KR:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700&amp;display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --bg-canvas: #F6F7F9;
+        --bg-surface: #FFFFFF;
+        --bg-inset: #F8FAFC;
+        --bg-tint: #F4F7FA;
+        --bg-chat: #F9FAFB;
+        --text-primary: #0F172A;
+        --text-secondary: #334155;
+        --text-muted: #64748B;
+        --text-subtle: #94A3B8;
+        --border-hairline: #E2E8F0;
+        --border-strong: #CBD5E1;
+        --accent: #1E3A5F;
+        --accent-hover: #162D4A;
+        --teal: #0F766E;
+        --teal-bg: #F0FDFA;
+        --teal-border: #99F6E4;
+        --amber: #B45309;
+        --amber-bg: #FFFBEB;
+        --amber-border: #FDE68A;
+        --red: #B91C1C;
+        --red-bg: #FEF2F2;
+        --red-border: #FECACA;
+        --radius-lg: 12px;
+        --radius-md: 8px;
+        --font-sans: "Plus Jakarta Sans", "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+        --font-mono: "JetBrains Mono", "Noto Sans KR", ui-monospace, SFMono-Regular, monospace;
+      }
+
+      *, *::before, *::after {
+        box-sizing: border-box;
+      }
+
+      html, body {
+        margin: 0;
+        padding: 0;
+        font-family: var(--font-sans);
+        background-color: var(--bg-canvas);
+        color: var(--text-primary);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      h1, h2, h3 {
+        margin: 0;
+        text-wrap: balance;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      button, input, textarea {
+        font-family: inherit;
+      }
+
+      button:focus-visible,
+      input:focus-visible,
+      textarea:focus-visible,
+      a:focus-visible,
+      summary:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+
+      .font-mono-tabular {
+        font-family: var(--font-mono);
+        font-variant-numeric: tabular-nums;
+      }
+
+      .tabular-nums {
+        font-variant-numeric: tabular-nums;
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      /* Top Navigation Bar (Strict 3-zone contract) */
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        background: rgba(246, 247, 249, 0.95);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--border-hairline);
+      }
+
+      .header-inner {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 0 24px;
+        height: 56px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 32px;
+      }
+
+      .brand-wordmark {
+        background: none;
+        border: 0;
+        padding: 4px 0;
+        font-size: 18px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        color: var(--text-primary);
+        white-space: nowrap;
+        flex-shrink: 0;
+        cursor: pointer;
+      }
+
+      .brand-wordmark:hover {
+        color: var(--accent);
+      }
+
+      .header-nav {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+      }
+
+      .nav-step-btn {
+        background: none;
+        border: 0;
+        border-bottom: 2px solid transparent;
+        padding: 6px 2px;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--text-muted);
+        white-space: nowrap;
+        flex-shrink: 0;
+        transition: color 0.16s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.16s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .nav-step-btn[data-unlocked="true"] {
+        cursor: pointer;
+      }
+
+      .nav-step-btn[data-unlocked="true"]:hover {
+        color: var(--text-primary);
+      }
+
+      .nav-step-btn[data-active="true"] {
+        color: var(--text-primary);
+        font-weight: 600;
+        border-bottom-color: var(--accent);
+      }
+
+      .nav-step-btn:disabled {
+        color: var(--text-subtle);
+        cursor: not-allowed;
+      }
+
+      .nav-num {
+        font-family: var(--font-mono);
+        font-variant-numeric: tabular-nums;
+        font-size: 12px;
+        margin-right: 5px;
+        opacity: 0.78;
+      }
+
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+      }
+
+      @media (max-width: 480px) {
+        .header-actions {
+          gap: 6px;
+        }
+        .header-actions .btn-sm {
+          padding: 6px 10px;
+          font-size: 11px;
+        }
+      }
+
+      .mobile-steps {
+        display: none;
+        border-top: 1px solid rgba(226, 232, 240, 0.8);
+        padding: 6px 16px;
+        font-size: 12px;
+        gap: 12px;
+        justify-content: space-between;
+        overflow-x: auto;
+      }
+
+      .mobile-step-item {
+        white-space: nowrap;
+        flex-shrink: 0;
+        color: var(--text-subtle);
+      }
+
+      .mobile-step-item[data-active="true"] {
+        color: var(--accent);
+        font-weight: 600;
+      }
+
+      @media (max-width: 767px) {
+        .header-inner {
+          padding: 0 16px;
+          gap: 12px;
+          height: 50px;
+        }
+        .header-nav {
+          display: none;
+        }
+        .mobile-steps {
+          display: flex;
+        }
+      }
+
+      /* Layout Containers */
+      .app-shell {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .main-area {
+        flex: 1;
+      }
+
+      .container-narrow {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 32px 20px 48px;
+      }
+
+      .container-wide {
+        max-width: 1020px;
+        margin: 0 auto;
+        padding: 32px 20px 56px;
+      }
+
+      .page-title {
+        font-size: clamp(24px, 3vw, 30px);
+        font-weight: 700;
+        letter-spacing: -0.025em;
+        line-height: 1.3;
+        color: var(--text-primary);
+      }
+
+      .page-lead {
+        margin-top: 10px;
+        font-size: 15px;
+        color: var(--text-secondary);
+        max-width: 65ch;
+      }
+
+      .surface-card {
+        background: var(--bg-surface);
+        border: 1px solid var(--border-hairline);
+        border-radius: var(--radius-lg);
+        padding: 24px;
+      }
+
+      @media (min-width: 640px) {
+        .surface-card.p-lg {
+          padding: 32px;
+        }
+      }
+
+      .inset-box {
+        background: var(--bg-inset);
+        border: 1px solid var(--border-hairline);
+        border-radius: var(--radius-md);
+        padding: 14px 16px;
+      }
+
+      .tint-box {
+        background: var(--bg-tint);
+        border: 1px solid rgba(30, 58, 95, 0.16);
+        border-radius: var(--radius-md);
+        padding: 16px;
+      }
+
+      /* Buttons */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        min-height: 40px;
+        padding: 8px 16px;
+        font-size: 14px;
+        font-weight: 600;
+        border-radius: var(--radius-md);
+        border: 1px solid transparent;
+        white-space: nowrap;
+        flex-shrink: 0;
+        cursor: pointer;
+        transition: background-color 0.16s cubic-bezier(0.16, 1, 0.3, 1),
+                    border-color 0.16s cubic-bezier(0.16, 1, 0.3, 1),
+                    color 0.16s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .btn:disabled {
+        opacity: 0.52;
+        cursor: not-allowed;
+      }
+
+      .btn-sm {
+        min-height: 34px;
+        padding: 6px 12px;
+        font-size: 12px;
+      }
+
+      .btn-primary {
+        background: var(--accent);
+        color: #FFFFFF;
+      }
+
+      .btn-primary:hover:not(:disabled) {
+        background: var(--accent-hover);
+      }
+
+      .btn-secondary {
+        background: #FFFFFF;
+        color: var(--text-primary);
+        border-color: var(--border-strong);
+      }
+
+      .btn-secondary:hover:not(:disabled) {
+        background: var(--bg-inset);
+      }
+
+      .btn-subtle {
+        background: #F1F5F9;
+        color: var(--text-secondary);
+        border-color: transparent;
+      }
+
+      .btn-subtle:hover:not(:disabled) {
+        background: #E2E8F0;
+        color: var(--text-primary);
+      }
+
+      .btn-outline-accent {
+        background: #FFFFFF;
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+
+      .btn-outline-accent:hover:not(:disabled) {
+        background: var(--bg-tint);
+      }
+
+      .btn-danger {
+        background: #DC2626;
+        color: #FFFFFF;
+      }
+
+      .btn-danger:hover:not(:disabled) {
+        background: #B91C1C;
+      }
+
+      /* Form Inputs & Selectors */
+      .field-label {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 6px;
+      }
+
+      .field-hint {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin-bottom: 8px;
+      }
+
+      .text-input,
+      .text-area {
+        width: 100%;
+        padding: 10px 14px;
+        font-size: 15px;
+        color: var(--text-primary);
+        background: #FFFFFF;
+        border: 1px solid var(--border-strong);
+        border-radius: var(--radius-md);
+        transition: border-color 0.16s ease, box-shadow 0.16s ease;
+      }
+
+      .text-input::placeholder,
+      .text-area::placeholder {
+        color: var(--text-subtle);
+      }
+
+      .text-input:focus,
+      .text-area:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(30, 58, 95, 0.14);
+      }
+
+      .text-area {
+        resize: vertical;
+        min-height: 82px;
+      }
+
+      .choice-card {
+        text-align: left;
+        padding: 14px 16px;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--border-hairline);
+        background: var(--bg-inset);
+        color: var(--text-primary);
+        cursor: pointer;
+        transition: background-color 0.16s ease, border-color 0.16s ease, color 0.16s ease;
+      }
+
+      .choice-card:hover {
+        background: #F1F5F9;
+      }
+
+      .choice-card[aria-pressed="true"] {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #FFFFFF;
+      }
+
+      .choice-card-title {
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .choice-card-desc {
+        margin-top: 4px;
+        font-size: 12px;
+        line-height: 1.45;
+        color: var(--text-muted);
+      }
+
+      .choice-card[aria-pressed="true"] .choice-card-desc {
+        color: #CBD5E1;
+      }
+
+      .focus-chip-btn {
+        text-align: left;
+        padding: 10px 12px;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--border-hairline);
+        background: #FFFFFF;
+        color: var(--text-primary);
+        cursor: pointer;
+        transition: background-color 0.16s ease, border-color 0.16s ease, color 0.16s ease;
+      }
+
+      .focus-chip-btn:hover {
+        background: var(--bg-inset);
+      }
+
+      .focus-chip-btn[aria-pressed="true"] {
+        background: #0F172A;
+        border-color: #0F172A;
+        color: #FFFFFF;
+      }
+
+      .focus-chip-btn[aria-pressed="true"] .focus-chip-sub {
+        color: #CBD5E1;
+      }
+
+      .focus-chip-sub {
+        margin-top: 2px;
+        font-size: 11px;
+        color: var(--text-muted);
+      }
+
+      /* Grids & Spacing Utilities */
+      .stack-sm { display: flex; flex-direction: column; gap: 10px; }
+      .stack-md { display: flex; flex-direction: column; gap: 16px; }
+      .stack-lg { display: flex; flex-direction: column; gap: 24px; }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .grid-3 {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      .grid-4 {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+      .grid-5 {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      @media (min-width: 640px) {
+        .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+        .grid-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+      }
+
+      .row-between {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .row-wrap {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+      }
+
+      /* Status Banners */
+      .status-banner {
+        border-radius: var(--radius-lg);
+        padding: 14px 18px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        font-size: 14px;
+      }
+
+      .status-info {
+        background: #F1F5F9;
+        border: 1px solid var(--border-hairline);
+        color: var(--text-secondary);
+      }
+
+      .status-warn {
+        background: var(--amber-bg);
+        border: 1px solid var(--amber-border);
+        color: #78350F;
+      }
+
+      .status-error {
+        background: var(--red-bg);
+        border: 1px solid var(--red-border);
+        color: #7F1D1D;
+      }
+
+      .status-ok {
+        background: var(--teal-bg);
+        border: 1px solid var(--teal-border);
+        color: #134E4A;
+      }
+
+      /* Research Summary Lists */
+      .section-heading {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 17px;
+        font-weight: 700;
+        color: var(--text-primary);
+      }
+
+      .question-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .question-list > li {
+        padding: 12px 0;
+        border-bottom: 1px solid #F1F5F9;
+      }
+
+      .question-list > li:last-child {
+        border-bottom: 0;
+        padding-bottom: 0;
+      }
+
+      /* Mock Interview Chat Shell */
+      .chat-shell {
+        background: var(--bg-surface);
+        border: 1px solid var(--border-hairline);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        height: calc(100vh - 136px);
+        min-height: 520px;
+        max-height: 820px;
+      }
+
+      .chat-header {
+        padding: 14px 20px;
+        border-bottom: 1px solid var(--border-hairline);
+        background: #F8FAFC;
+      }
+
+      .progress-track {
+        width: 100%;
+        height: 6px;
+        background: var(--border-hairline);
+        border-radius: 999px;
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: var(--accent);
+        border-radius: 999px;
+        transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .chat-messages {
+        flex: 1;
+        overflow-y: auto;
+        padding: 20px;
+        background: var(--bg-chat);
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .msg-row {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .msg-row.interviewer {
+        align-items: flex-start;
+      }
+
+      .msg-row.candidate {
+        align-items: flex-end;
+      }
+
+      .msg-meta {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        color: var(--text-muted);
+        margin-bottom: 4px;
+        padding: 0 2px;
+      }
+
+      .msg-bubble {
+        max-width: min(78%, 580px);
+        padding: 12px 16px;
+        border-radius: var(--radius-lg);
+        font-size: 15px;
+        line-height: 1.6;
+        white-space: pre-wrap;
+        word-break: keep-all;
+        overflow-wrap: break-word;
+      }
+
+      @media (max-width: 639px) {
+        .msg-bubble {
+          max-width: 88%;
+        }
+      }
+
+      .msg-bubble.interviewer {
+        background: #FFFFFF;
+        border: 1px solid var(--border-hairline);
+        color: var(--text-primary);
+      }
+
+      .msg-bubble.candidate {
+        background: var(--accent);
+        color: #FFFFFF;
+      }
+
+      .msg-speech-meta {
+        margin-top: 4px;
+        padding: 0 2px;
+        font-size: 11px;
+        color: var(--text-muted);
+      }
+
+      .link-btn {
+        background: none;
+        border: 0;
+        padding: 0;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--accent);
+        cursor: pointer;
+      }
+
+      .link-btn:hover {
+        text-decoration: underline;
+      }
+
+      .chat-footer {
+        padding: 14px 16px;
+        border-top: 1px solid var(--border-hairline);
+        background: #FFFFFF;
+      }
+
+      .stream-caret {
+        display: inline-block;
+        width: 6px;
+        height: 16px;
+        margin-left: 3px;
+        vertical-align: middle;
+        background: var(--accent);
+        animation: blink 0.9s steps(2, start) infinite;
+      }
+
+      @keyframes blink {
+        to { opacity: 0.15; }
+      }
+
+      .thinking-dots {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .thinking-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent);
+        animation: bounce-dot 1s infinite ease-in-out;
+      }
+
+      .thinking-dot:nth-child(2) { animation-delay: 0.15s; }
+      .thinking-dot:nth-child(3) { animation-delay: 0.3s; }
+
+      @keyframes bounce-dot {
+        0%, 80%, 100% { transform: translateY(0); opacity: 0.45; }
+        40% { transform: translateY(-4px); opacity: 1; }
+      }
+
+      .voice-wave {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        height: 20px;
+      }
+
+      .voice-bar {
+        width: 4px;
+        height: 16px;
+        border-radius: 4px;
+        background: var(--accent);
+        transform-origin: center;
+        animation: voice-wave 0.9s ease-in-out infinite;
+      }
+
+      .voice-bar:nth-child(2) { height: 20px; animation-delay: 0.15s; }
+      .voice-bar:nth-child(3) { height: 14px; animation-delay: 0.3s; }
+      .voice-bar:nth-child(4) { height: 20px; animation-delay: 0.45s; }
+      .voice-bar:nth-child(5) { height: 16px; animation-delay: 0.6s; }
+
+      @keyframes voice-wave {
+        0%, 100% { transform: scaleY(0.32); }
+        50% { transform: scaleY(1); }
+      }
+
+      /* Compact Corner Telemetry Panel */
+      .metrics-hud {
+        position: fixed;
+        right: 14px;
+        bottom: 14px;
+        z-index: 25;
+        width: 252px;
+        background: rgba(255, 255, 255, 0.96);
+        backdrop-filter: blur(6px);
+        border: 1px solid var(--border-hairline);
+        border-radius: var(--radius-md);
+        box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+        font-size: 11px;
+        color: var(--text-secondary);
+      }
+
+      @media (max-width: 1180px) {
+        .metrics-hud {
+          bottom: 84px;
+        }
+      }
+
+      .metrics-hud-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 6px 10px;
+        border-bottom: 1px solid #F1F5F9;
+      }
+
+      .metrics-hud-body {
+        padding: 8px 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .metrics-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+      }
+
+      /* Score Bars */
+      .score-bar-track {
+        height: 8px;
+        width: 100%;
+        background: var(--border-hairline);
+        border-radius: 999px;
+        overflow: hidden;
+        margin-top: 8px;
+      }
+
+      .score-bar-fill {
+        height: 100%;
+        background: var(--accent);
+        border-radius: 999px;
+      }
+
+      .check-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 10px;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--border-hairline);
+        background: var(--bg-inset);
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--text-secondary);
+      }
+
+      .check-item[data-ok="true"] {
+        background: var(--teal-bg);
+        border-color: var(--teal-border);
+        color: #134E4A;
+      }
+
+      /* Print Report Layout */
+      #print-report {
+        display: none;
+      }
+
+      @media print {
+        body {
+          background: #FFFFFF;
+          color: #0F172A;
+        }
+        .site-header,
+        #app-root,
+        #turn-metrics-panel {
+          display: none !important;
+        }
+        #print-report {
+          display: block !important;
+          padding: 12mm;
+          font-size: 12px;
+          line-height: 1.55;
+        }
+        .print-section {
+          margin-bottom: 18px;
+          break-inside: avoid;
+        }
+        .print-card {
+          border: 1px solid #CBD5E1;
+          border-radius: 6px;
+          padding: 12px;
+          margin-bottom: 10px;
+          break-inside: avoid;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  <script src="/_aistudio-iframe.js?v=29045eb3"></script><script src="https://cdn.jsdelivr.net/npm/html2canvas-pro@2.0.4"></script><style>.aistudio-hover-highlight { box-shadow: inset 0 0 0 0.5px white, inset 0 0 0 1.5px rgba(128,128,128,0.6) !important; }.aistudio-active-highlight { outline: 2px solid #87a9ff !important; outline-offset: -2px !important; box-shadow: 0 0 0 0.5px rgba(0,0,0,0.3), inset 0 0 0 0.5px rgba(0,0,0,0.3) !important; }.aistudio-generating-blur { filter: blur(5px) grayscale(100%) brightness(28%) !important; transition: filter 0.3s ease; }#aistudio-focus-mode-tag { position: absolute; display: none; align-items: center; gap: 4px; background: #87a9ff; border-radius: 12px; z-index: 10000; padding: 8px; color: #32302c; font-family: Inter, sans-serif; font-size: 14px; font-style: normal; font-weight: 500; line-height: 21px; pointer-events: none; }#aistudio-hover-mode-tag { position: absolute; display: none; align-items: center; gap: 4px; background: rgba(128,128,128,0.6); border-radius: 12px; z-index: 10000; padding: 8px; color: white; font-family: Inter, sans-serif; font-size: 14px; font-style: normal; font-weight: 500; line-height: 21px; pointer-events: none; }.aistudio-img-icon { display: none; vertical-align: middle; pointer-events: auto; cursor: pointer; }.aistudio-img-icon.visible { display: inline-flex; }#aistudio-focus-mode-tag .aistudio-img-icon { position: relative; width: 26px; height: 26px; background: #32302c; border-radius: 6px; margin: -4px -4px -4px 0; }#aistudio-focus-mode-tag .aistudio-img-icon::before { content: ""; position: absolute; top: 4px; left: 4px; width: 18px; height: 18px; background-color: white; -webkit-mask-image: url("https://fonts.gstatic.com/s/i/short-term/release/googlesymbols/edit_fix_auto/default/24px.svg"); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; mask-image: url("https://fonts.gstatic.com/s/i/short-term/release/googlesymbols/edit_fix_auto/default/24px.svg"); mask-size: contain; mask-repeat: no-repeat; }#aistudio-hover-mode-tag .aistudio-img-icon { position: relative; width: 18px; height: 18px; margin-left: 4px; }#aistudio-hover-mode-tag .aistudio-img-icon::before { content: ""; position: absolute; top: 0; left: 0; width: 18px; height: 18px; background-color: white; -webkit-mask-image: url("https://fonts.gstatic.com/s/i/short-term/release/googlesymbols/edit_fix_auto/default/24px.svg"); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; mask-image: url("https://fonts.gstatic.com/s/i/short-term/release/googlesymbols/edit_fix_auto/default/24px.svg"); mask-size: contain; mask-repeat: no-repeat; }#aistudio-focus-mode-tag .aistudio-img-icon:hover, #aistudio-hover-mode-tag .aistudio-img-icon:hover { background: #424242 !important; }#aistudio-focus-mode-tag .aistudio-img-icon:active, #aistudio-hover-mode-tag .aistudio-img-icon:active { background: #393f51 !important; }</style></head>
+  <body>
+    <div class="app-shell">
+      <!-- 3-Zone Sticky Header -->
+      <header class="site-header">
+        <div class="header-inner">
+          <button type="button" id="brand-reset-btn" class="brand-wordmark">
+            면접 코치
+          </button>
+
+          <nav aria-label="진행 단계" class="header-nav" id="desktop-nav">
+            <button type="button" class="nav-step-btn" data-step="input">
+              <span class="nav-num">01</span>정보 입력
+            </button>
+            <button type="button" class="nav-step-btn" data-step="research">
+              <span class="nav-num">02</span>면접 리서치
+            </button>
+            <button type="button" class="nav-step-btn" data-step="interview">
+              <span class="nav-num">03</span>모의면접
+            </button>
+            <button type="button" class="nav-step-btn" data-step="result">
+              <span class="nav-num">04</span>피드백 결과
+            </button>
+          </nav>
+
+          <div class="header-actions">
+            <button type="button" id="header-download-btn" class="btn btn-outline-accent btn-sm">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg>
+              <span id="header-download-label">index.html 다운로드</span>
+            </button>
+            <button type="button" id="header-reset-btn" class="btn btn-secondary btn-sm">
+              새로 시작
+            </button>
+          </div>
+        </div>
+
+        <div class="mobile-steps" id="mobile-nav" aria-label="모바일 진행 단계">
+          <span class="mobile-step-item" data-step="input">01 정보 입력</span>
+          <span class="mobile-step-item" data-step="research">02 면접 리서치</span>
+          <span class="mobile-step-item" data-step="interview">03 모의면접</span>
+          <span class="mobile-step-item" data-step="result">04 피드백 결과</span>
+        </div>
+      </header>
+
+      <!-- Main Viewport -->
+      <main id="app-root" class="main-area"></main>
+
+      <!-- Compact Corner Response Timing HUD -->
+      <aside id="turn-metrics-panel" class="metrics-hud" aria-label="응답 속도 단계별 측정" hidden=""></aside>
+
+      <!-- Print / PDF Export Container -->
+      <section id="print-report" aria-hidden="true"></section>
+    </div>
+
+    <script>
+      (function () {
+        "use strict";
+
+        /* =========================================================
+         * 1. Constants & Safe Storage Utilities
+         * ========================================================= */
+        var CACHE_KEY = "interview_coach_research_cache_v1";
+        var MAX_CACHE_ENTRIES = 20;
+        var memoryFallbackStore = {};
+
+        var LENGTH_OPTIONS = [
+          { key: "short", label: "짧게", count: 5, minutes: 10, summary: "질문 5개, 약 10분" },
+          { key: "medium", label: "보통", count: 8, minutes: 20, summary: "질문 8개, 약 20분" },
+          { key: "long", label: "길게", count: 12, minutes: 30, summary: "질문 12개, 약 30분" },
+        ];
+
+        var FOCUSED_TYPES = [
+          { type: "인성", desc: "가치관 · 지원동기 · 협업" },
+          { type: "직무", desc: "전공 · 실무 역량 · 문제해결" },
+          { type: "PT", desc: "주제 발표 · 논리 구조화" },
+          { type: "토론", desc: "찬반 논거 · 경청과 설득" },
+          { type: "압박", desc: "근거 검증 · 날카로운 반문" },
+        ];
+
+        var QUICK_EXAMPLES = [
+          {
+            label: "네이버 · 백엔드 개발 (종합)",
+            kind: "company",
+            profile: {
+              organization: "네이버",
+              role: "백엔드 소프트웨어 엔지니어",
+              interviewMode: "comprehensive",
+              focusedType: "직무",
+              interviewLength: "medium",
+              background:
+                "컴퓨터공학 전공 신입 지원자. Spring Boot 기반 학내 커뮤니티 서비스 개발 및 트래픽 병목 개선 경험이 있습니다.",
+              pastedReviews: "",
+            },
+          },
+          {
+            label: "서울대학교 · 경영학과 (종합)",
+            kind: "university",
+            profile: {
+              organization: "서울대학교",
+              role: "경영학과",
+              interviewMode: "comprehensive",
+              focusedType: "인성",
+              interviewLength: "medium",
+              background:
+                "고등학교 학생회 활동 및 지역 소상공인 마케팅 봉사 동아리를 2년간 이끌었습니다.",
+              pastedReviews: "",
+            },
+          },
+        ];
+
+        function escapeHtml(value) {
+          return String(value == null ? "" : value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#39;");
+        }
+
+        function safeStorageGet(key) {
+          try {
+            if (window.localStorage) {
+              return window.localStorage.getItem(key);
+            }
+          } catch (e) {
+            // file:// private mode fallback
+          }
+          return Object.prototype.hasOwnProperty.call(memoryFallbackStore, key)
+            ? memoryFallbackStore[key]
+            : null;
+        }
+
+        function safeStorageSet(key, val) {
+          memoryFallbackStore[key] = val;
+          try {
+            if (window.localStorage) {
+              window.localStorage.setItem(key, val);
+            }
+          } catch (e) {
+            // ignore quota/file security errors
+          }
+        }
+
+        function getLengthCount(lenKey) {
+          for (var i = 0; i < LENGTH_OPTIONS.length; i++) {
+            if (LENGTH_OPTIONS[i].key === lenKey) return LENGTH_OPTIONS[i].count;
+          }
+          return 8;
+        }
+
+        function formatElapsed(sec) {
+          var m = Math.floor(sec / 60);
+          var s = sec % 60;
+          return String(m).padStart(2, "0") + ":" + String(s).padStart(2, "0");
+        }
+
+        function formatTimeNow() {
+          try {
+            return new Date().toLocaleTimeString("ko-KR", {
+              hour: "2-digit",
+              minute: "2-digit",
+            });
+          } catch (e) {
+            return "";
+          }
+        }
+
+        function formatCachedDate(iso) {
+          if (!iso) return "";
+          var d = new Date(iso);
+          if (isNaN(d.getTime())) return "";
+          return (
+            d.getMonth() +
+            1 +
+            "/" +
+            d.getDate() +
+            " " +
+            String(d.getHours()).padStart(2, "0") +
+            ":" +
+            String(d.getMinutes()).padStart(2, "0")
+          );
+        }
+
+        /* =========================================================
+         * 2. Research Cache (localStorage)
+         * ========================================================= */
+        function buildCacheKey(org, role) {
+          var nOrg = String(org || "").trim().replace(/\s+/g, " ").toLowerCase();
+          var nRole = String(role || "").trim().replace(/\s+/g, " ").toLowerCase();
+          return nOrg + "::" + nRole;
+        }
+
+        function readCacheStore() {
+          try {
+            var raw = safeStorageGet(CACHE_KEY);
+            if (!raw) return {};
+            var parsed = JSON.parse(raw);
+            if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return {};
+            return parsed;
+          } catch (e) {
+            return {};
+          }
+        }
+
+        function getCachedResearch(org, role, pastedReviews) {
+          var key = buildCacheKey(org, role);
+          if (!key || key === "::") return null;
+          var store = readCacheStore();
+          var entry = store[key];
+          if (!entry || !entry.research) return null;
+          if (String(entry.pastedReviews || "") !== String(pastedReviews || "").trim()) {
+            return null;
+          }
+          return entry;
+        }
+
+        function saveCachedResearch(org, role, research, pastedReviews) {
+          var key = buildCacheKey(org, role);
+          var entry = {
+            key: key,
+            organization: String(org || "").trim(),
+            role: String(role || "").trim(),
+            pastedReviews: String(pastedReviews || "").trim(),
+            cachedAt: new Date().toISOString(),
+            research: research,
+          };
+          if (key && key !== "::") {
+            var store = readCacheStore();
+            store[key] = entry;
+            var entries = Object.keys(store)
+              .map(function (k) { return store[k]; })
+              .sort(function (a, b) { return a.cachedAt < b.cachedAt ? 1 : -1; })
+              .slice(0, MAX_CACHE_ENTRIES);
+            var trimmed = {};
+            for (var i = 0; i < entries.length; i++) {
+              trimmed[entries[i].key] = entries[i];
+            }
+            safeStorageSet(CACHE_KEY, JSON.stringify(trimmed));
+          }
+          return entry;
+        }
+
+        /* =========================================================
+         * 3. Inline Crisp SVG Icons (Affordances Only)
+         * ========================================================= */
+        function iconSvg(name, cls) {
+          var c = cls || "icon-sm";
+          var paths = {
+            search: '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
+            arrowRight: '<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>',
+            arrowLeft: '<path d="M19 12H5"/><path d="m12 19-7-7 7-7"/>',
+            building: '<rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/>',
+            grad: '<path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 3 3 6 3s6-1 6-3v-5"/>',
+            check: '<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>',
+            minus: '<circle cx="12" cy="12" r="10"/><path d="M8 12h8"/>',
+            refresh: '<path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/>',
+            mic: '<path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/>',
+            micOff: '<line x1="2" x2="22" y1="2" y2="22"/><path d="M18.89 13.23A7.12 7.12 0 0 0 19 12v-2"/><path d="M5 10v2a7 7 0 0 0 12 5"/><path d="M15 9.34V5a3 3 0 0 0-5.68-1.33"/><path d="M9 9v3a3 3 0 0 0 5.12 2.12"/><line x1="12" x2="12" y1="19" y2="22"/>',
+            square: '<rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor"/>',
+            send: '<path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/>',
+            volume: '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>',
+            volumeOff: '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="22" x2="16" y1="9" y2="15"/><line x1="16" x2="22" y1="9" y2="15"/>',
+            clock: '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+            download: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/>',
+            alert: '<circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12" y1="16" y2="16.01"/>',
+            list: '<path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/><path d="M13 6h8"/><path d="M13 12h8"/><path d="M13 18h8"/>',
+            msg: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+            help: '<circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/>',
+            bulb: '<path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/>',
+            chevDown: '<path d="m6 9 6 6 6-6"/>',
+            chevUp: '<path d="m18 15-6-6-6 6"/>',
+            db: '<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/>',
+          };
+          return (
+            '<svg class="' +
+            c +
+            '" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+            (paths[name] || "") +
+            "</svg>"
+          );
+        }
+
+        /* =========================================================
+         * 4. Domain Intelligence, Research Summary & Question Planner
+         * ========================================================= */
+        function detectDomain(org, role, background, pastedReviews) {
+          var combined = (org + " " + role + " " + background + " " + pastedReviews).toLowerCase();
+          var isUniversity =
+            /대학|학과|학부|입시|학생부|생기부|세특|수시|학종|고교|고등학교/.test(combined);
+          var isTech =
+            /개발|엔지니어|백엔드|프론트|소프트웨어|데이터|ai|인공지능|컴퓨터|전기|전자|기계|화학|공학|보안|시스템|클라우드/.test(
+              combined
+            );
+          var isBiz =
+            /경영|기획|마케팅|영업|전략|pm|po|브랜드|금융|회계|경제|인사|hr|컨설팅/.test(combined);
+          var isDesign = /디자인|ux|ui|콘텐츠|미디어|영상|홍보/.test(combined);
+          return {
+            isUniversity: isUniversity,
+            isTech: isTech,
+            isBiz: isBiz,
+            isDesign: isDesign,
+          };
+        }
+
+        function extractBackgroundTopics(background) {
+          if (!background || !background.trim()) return [];
+          var parts = background
+            .split(/[,.\n;/]+/)
+            .map(function (s) { return s.trim(); })
+            .filter(function (s) { return s.length >= 4 && s.length <= 55; });
+          return parts.slice(0, 4);
+        }
+
+        function extractPastedQuestions(pastedText) {
+          if (!pastedText || !pastedText.trim()) return [];
+          var lines = pastedText
+            .split(/\r?\n|[?!]/)
+            .map(function (s) {
+              return s
+                .replace(/^\s*(?:Q\s*\d*|\d+)[.)\s:-]*/i, "")
+                .replace(/^기출\s*질문\s*[:：]\s*/i, "")
+                .trim();
+            })
+            .filter(function (s) { return s.length >= 8; });
+
+          var results = [];
+          for (var i = 0; i < lines.length; i++) {
+            var line = lines[i];
+            if (
+              /\?|인가요|습니까|있나요|말씀해|설명해|이유는|무엇|어떻게|왜\s/.test(line) ||
+              line.indexOf("질문") !== -1
+            ) {
+              var qText = /[?？.]$/.test(line) ? line : line + "?";
+              if (qText.length > 90) {
+                qText = qText.slice(0, 86).trim() + "?";
+              }
+              results.push(qText);
+            }
+            if (results.length >= 4) break;
+          }
+          return results;
+        }
+
+        function generateResearchSummary(profile, variationIndex) {
+          var org = profile.organization.trim();
+          var role = profile.role.trim();
+          var bg = (profile.background || "").trim();
+          var pasted = (profile.pastedReviews || "").trim();
+          var hasPasted = pasted.length > 0;
+          var domain = detectDomain(org, role, bg, pasted);
+          var bgTopics = extractBackgroundTopics(bg);
+          var v = variationIndex || 0;
+
+          // Detect atmosphere & rounds from pasted reviews if provided
+          var pressureLevel = "보통";
+          if (hasPasted && /압박|날카|꼬리질문.*길|15분|집요|까다롭/.test(pasted)) {
+            pressureLevel = "날카로움";
+          } else if (hasPasted && /편안|차분|친절|부드럽|대화형/.test(pasted)) {
+            pressureLevel = "차분함";
+          } else if (profile.interviewMode === "focused" && profile.focusedType === "압박") {
+            pressureLevel = "날카로움";
+          }
+
+          var interviewerTone =
+            pressureLevel === "날카로움"
+              ? "답변의 구체적 근거와 사실 여부를 끝까지 파고드는 날카로운 존댓말 면접관"
+              : pressureLevel === "차분함"
+              ? "지원자의 긴장을 풀어주되 핵심 경험의 맥락을 차분히 확인하는 존댓말 면접관"
+              : "차분하고 정중한 어조로 실제 경험과 논리 근거를 확인하는 면접관";
+
+          var rounds = [];
+          if (hasPasted) {
+            if (/1차|실무|직무/.test(pasted)) {
+              rounds.push({
+                id: "round-1",
+                name: "1차 직무·실무 면접",
+                description: "붙여넣은 후기에 언급된 직무 역량과 프로젝트 트러블슈팅 중심 검증",
+              });
+            }
+            if (/2차|임원|인성|최종/.test(pasted)) {
+              rounds.push({
+                id: "round-2",
+                name: "2차 임원·인성 면접",
+                description: "조직 적합성, 가치관, 지원 동기의 진정성을 확인하는 단계",
+              });
+            }
+            if (/PT|발표/.test(pasted)) {
+              rounds.push({
+                id: "round-pt",
+                name: "PT 발표 면접",
+                description: "주어진 과제를 제한 시간 내 구조화하여 발표하고 질의응답을 진행",
+              });
+            }
+          }
+
+          var threeLineSummary = domain.isUniversity
+            ? [
+                org + " " + role + "는 지원자의 전공 관심 계기와 탐구 과정의 일관성을 중요하게 봅니다.",
+                "학생부·활동 내용에서 본인이 직접 주도한 역할과 배운 점을 논리적으로 설명하는 역량이 핵심입니다.",
+                "세부 학과 프로그램·연구실 정보는 단정하지 않고, 교과 기초와 탐구 태도 중심으로 대비합니다.",
+              ]
+            : domain.isTech
+            ? [
+                org + "의 " + role + " 포지션은 문제 정의부터 해결·검증까지의 실무 사고 과정을 중시합니다.",
+                "단순 기술 나열보다 왜 그 기술을 선택했고 어떤 지표를 개선했는지 근거 중심 설명이 요구됩니다.",
+                "협업 과정에서 발생한 갈등이나 장애를 어떻게 조율하고 재발 방지했는지가 주요 평가 포인트입니다.",
+              ]
+            : [
+                org + "의 " + role + " 직무는 목표 달성을 위한 실행력과 팀 협업 경험을 핵심으로 봅니다.",
+                "지원 동기와 본인의 경험이 해당 직무의 실제 과제와 어떻게 맞닿아 있는지 연결해 설명해야 합니다.",
+                "모호한 표현보다 구체적인 수치·행동·결과를 제시할 때 높은 신뢰도를 얻을 수 있습니다.",
+              ];
+
+          var institutionContext = {
+            threeLineSummary: threeLineSummary,
+            businessDomain: domain.isUniversity
+              ? org + " " + role + "의 기초 학문 탐구 및 전공 연계 응용 역량을 기르는 교육 과정"
+              : org + "에서 " + role + " 역량을 바탕으로 서비스·사업 경쟁력을 높이는 직무 영역",
+            coreValues: domain.isUniversity
+              ? "학업 성실성, 자기주도적 탐구 태도, 전공에 대한 지속적 호기심과 공동체 기여"
+              : "주도적 문제 해결력, 데이터·근거 기반 의사결정, 동료와 원활히 소통하는 협업 태도",
+            flagshipProductsOrCurriculum: domain.isTech
+              ? "전공·실무 기초 원리 이해, 시스템 설계 및 트러블슈팅, 품질 개선 경험"
+              : domain.isBiz
+              ? "문제 구조화, 실행 전략 수립, 성과 분석 및 이해관계자 커뮤니케이션"
+              : "전공 핵심 개념의 실제 적용, 탐구 프로젝트 설계 및 결과 해석 역량",
+            industryIssues:
+              "AI·디지털 전환 흐름 속에서 기본기 탄탄한 인재와 실제 문제 해결 경험에 대한 검증이 강화되는 추세입니다.",
+            modelKnowledgeNotice: "모델 지식 기반이라 최신 정보와 다를 수 있어요",
+          };
+
+          var questionItems = [];
+          var pastedQs = extractPastedQuestions(pasted);
+          for (var pIdx = 0; pIdx < pastedQs.length; pIdx++) {
+            questionItems.push({
+              question: pastedQs[pIdx],
+              isRealQuestion: true,
+              questionBasis: "후기 기반",
+              questionTag: "기관·직무 특화",
+              note: "붙여넣은 면접 후기·기출에서 직접 추출한 질문입니다.",
+              yearInfo: "사용자 붙여넣기 후기",
+            });
+          }
+
+          // Background-tailored question
+          if (bgTopics.length > 0 && questionItems.length < 5) {
+            var topic = bgTopics[v % bgTopics.length];
+            questionItems.push({
+              question: domain.isUniversity
+                ? "학생부나 활동 중 '" + topic + "' 경험에서 가장 깊이 고민했던 점은 무엇인가요?"
+                : "이력에 적으신 '" + topic + "' 경험에서 본인이 직접 해결한 가장 까다로운 문제는 무엇이었나요?",
+              isRealQuestion: false,
+              questionBasis: "모델 지식 기반",
+              questionTag: "기관·직무 특화",
+              note: "입력하신 경력·활동 정보를 우선 반영해 만든 맞춤 질문입니다.",
+            });
+          }
+
+          var poolTech = [
+            role + "에서 장애나 성능 저하가 발생했을 때 가장 먼저 원인을 좁혀가는 기준은 무엇인가요?",
+            "최근 진행한 프로젝트에서 기술적 선택을 두고 고민했던 사례와 최종 결정 이유를 말씀해 주세요.",
+            "협업 과정에서 코드 품질이나 설계 방향을 두고 의견이 달랐을 때 어떻게 조율하셨나요?",
+            "트래픽이나 데이터 규모가 지금보다 10배 커진다면 기존 설계에서 어디를 먼저 보완하시겠어요?",
+          ];
+
+          var poolUniv = [
+            org + " " + role + "에 지원하게 된 결정적인 계기가 무엇인가요?",
+            "고등학교 과정에서 가장 흥미를 느끼고 스스로 확장해 탐구했던 주제는 무엇인가요?",
+            "전공 공부를 하면서 예상과 달라 어려웠던 개념이나 과제를 어떻게 극복하셨나요?",
+            "팀 활동이나 동아리에서 의견 충돌이 생겼을 때 본인은 어떤 방식으로 조율하는 편인가요?",
+          ];
+
+          var poolBiz = [
+            org + "의 " + role + "에 지원하신 이유와 본인이 기여할 수 있는 강점은 무엇인가요?",
+            "목표나 일정이 촉박한 상황에서 우선순위를 정해 문제를 해결했던 경험을 말씀해 주세요.",
+            "예상과 다른 결과가 나왔을 때 원인을 분석하고 계획을 수정했던 사례가 있나요?",
+            "함께 일하기 까다로웠던 동료나 이해관계자와 협업을 이끌어낸 경험이 있다면 들려주세요.",
+          ];
+
+          var chosenPool = domain.isUniversity
+            ? poolUniv
+            : domain.isTech
+            ? poolTech
+            : poolBiz;
+
+          for (var k = 0; k < chosenPool.length && questionItems.length < 4; k++) {
+            var qCandidate = chosenPool[(k + v) % chosenPool.length];
+            var exists = questionItems.some(function (it) { return it.question === qCandidate; });
+            if (!exists) {
+              questionItems.push({
+                question: qCandidate,
+                isRealQuestion: false,
+                questionBasis: "모델 지식 기반",
+                questionTag: k % 2 === 0 ? "기관·직무 특화" : "실무 상황 가정",
+                note: org + " · " + role + " 맥락과 지원자 정보 기준으로 구성한 질문입니다.",
+              });
+            }
+          }
+
+          var genericPool = [
+            "본인의 강점이 입사 후 또는 입학 후 어떤 상황에서 가장 빛을 발할 수 있을까요?",
+            "지금까지 겪은 가장 큰 실패 경험과 그 과정에서 배운 점을 한 가지 말씀해 주세요.",
+          ];
+          questionItems.push({
+            question: genericPool[v % genericPool.length],
+            isRealQuestion: false,
+            questionBasis: "일반 예상 질문",
+            questionTag: "범용 질문",
+            note: "지원 동기와 태도를 확인하는 기본 질문입니다.",
+          });
+
+          return {
+            organization: org,
+            role: role,
+            interviewMode: profile.interviewMode,
+            focusedType: profile.focusedType,
+            dataStatus: hasPasted ? "limited" : "unsearched",
+            isWithoutSearch: !hasPasted,
+            hasPastedReviews: hasPasted,
+            dataStatusMessage: hasPasted
+              ? "붙여넣은 면접 후기·기출을 최우선 근거로 반영했습니다. 후기에 없는 항목은 모델 지식 기반 요약입니다."
+              : "검색 없이 로컬 모델 지식 기반으로 구성한 요약입니다. 실제 최신 전형과 다를 수 있어요.",
+            institutionContext: institutionContext,
+            interviewRounds: rounds,
+            processCard: {
+              summary: hasPasted
+                ? "붙여넣은 후기·기출을 최우선으로 반영해 면접 흐름과 검증 포인트를 정리했습니다."
+                : "실제 실전 면접 흐름(자기소개 → 지원 동기 → 경험·역량 → 직무·전공 → 상황 질문 → 마무리)으로 진행됩니다.",
+              stages: [
+                hasPasted
+                  ? "붙여넣은 후기 기반 질문 + 직무·경험 검증 및 꼬리질문"
+                  : "자기소개 → 지원 동기 → 경험·역량 → 직무/전공 → 상황 질문 → 마무리",
+              ],
+            },
+            questionsCard: {
+              items: questionItems.slice(0, 5),
+            },
+            atmosphereCard: {
+              summary: hasPasted
+                ? "붙여넣은 후기에 나타난 분위기와 압박 수준을 반영했습니다."
+                : "지원자의 논리 전개와 구체적 경험 근거를 차분히 확인하는 실전 면접 분위기입니다.",
+              interviewerTone: interviewerTone,
+              pressureLevel: pressureLevel,
+            },
+            tipsCard: {
+              tips: [
+                "두괄식으로 핵심 결론을 첫 문장에 먼저 제시한 뒤, 실제 행동과 수치·결과를 덧붙여 보세요.",
+                org + " " + role + "에 지원한 이유를 본인의 구체적인 경험 1가지와 자연스럽게 연결하세요.",
+                "꼬리질문이 이어질 때를 대비해 '왜 그 방식을 선택했는지' 판단 근거를 1~2문장으로 정리해 두세요.",
+              ],
+            },
+            allSources: [],
+          };
+        }
+
+        /* =========================================================
+         * 5. Real Interview Flow Question Planner (5 / 8 / 12)
+         * ========================================================= */
+        function getStageInfo(qNum, totalQuestions) {
+          if (qNum <= 1) {
+            return { stageName: "자기소개", difficulty: "가벼운 시작" };
+          }
+          if (qNum === 2) {
+            return { stageName: "지원 동기", difficulty: "기본" };
+          }
+          if (qNum >= totalQuestions) {
+            return { stageName: "하고 싶은 말·궁금한 점", difficulty: "마무리" };
+          }
+          if (totalQuestions <= 5) {
+            return qNum === 3
+              ? { stageName: "경험·역량", difficulty: "중간" }
+              : { stageName: "직무·전공 및 상황 질문", difficulty: "심화" };
+          }
+          if (totalQuestions <= 8) {
+            if (qNum <= 4) return { stageName: "경험·역량", difficulty: "중간" };
+            if (qNum <= 6) return { stageName: "직무·전공", difficulty: "심화" };
+            return { stageName: "상황 질문", difficulty: "실전 응용" };
+          }
+          if (qNum <= 5) return { stageName: "경험·역량", difficulty: "중간" };
+          if (qNum <= 8) return { stageName: "직무·전공", difficulty: "심화" };
+          return { stageName: "상황 질문", difficulty: "실전 응용" };
+        }
+
+        function buildPlannedQuestions(profile, research, mode, focusedType, selectedRound, totalQuestions) {
+          var org = profile.organization.trim();
+          var role = profile.role.trim();
+          var domain = detectDomain(org, role, profile.background || "", profile.pastedReviews || "");
+          var bgTopics = extractBackgroundTopics(profile.background || "");
+
+          var reviewItems = (research.questionsCard && research.questionsCard.items ? research.questionsCard.items : [])
+            .filter(function (q) { return q.questionBasis === "후기 기반" || q.isRealQuestion; });
+          var knowledgeItems = (research.questionsCard && research.questionsCard.items ? research.questionsCard.items : [])
+            .filter(function (q) { return q.questionBasis !== "후기 기반" && !q.isRealQuestion; });
+
+          var expBank = [];
+          if (bgTopics.length > 0) {
+            expBank.push(
+              domain.isUniversity
+                ? "학생부나 활동에 적으신 '" + bgTopics[0] + "' 경험에서 가장 주도적으로 했던 일은 무엇인가요?"
+                : "경력란에 적어주신 '" + bgTopics[0] + "'에서 본인이 직접 해결한 문제는 무엇이었나요?"
+            );
+          }
+          if (bgTopics.length > 1) {
+            expBank.push("'" + bgTopics[1] + "' 활동을 진행하면서 가장 아쉬웠던 점이나 배운 점은 무엇인가요?");
+          }
+          expBank.push(
+            "팀 활동이나 협업 중 의견이 갈렸을 때 본인이 직접 조율해 해결했던 경험을 말씀해 주세요.",
+            "예상치 못한 문제로 목표 달성이 어려웠을 때 끝까지 해결했던 사례 한 가지를 들려주세요.",
+            "본인이 했던 프로젝트나 활동 중 가장 자신 있게 설명할 수 있는 성과는 무엇인가요?"
+          );
+
+          var majorBank = domain.isUniversity
+            ? [
+                role + "와 관련해 최근 관심 있게 탐구한 주제나 개념 한 가지를 설명해 주시겠어요?",
+                "전공 공부를 할 때 가장 중요하다고 생각하는 기본 역량은 무엇이라고 보시나요?",
+                role + " 분야에서 앞으로 해결해보고 싶은 학업적 과제가 있다면 무엇인가요?",
+              ]
+            : domain.isTech
+            ? [
+                role + " 업무에서 시스템 안정성과 성능을 동시에 높이기 위해 가장 먼저 확인하는 기준은 무엇인가요?",
+                "서비스 장애나 예기치 않은 오류가 발생했을 때 원인을 파악하고 복구하는 본인만의 순서가 있나요?",
+                "코드나 설계의 완성도와 빠른 일정 사이에서 균형을 맞춰야 한다면 어떤 기준으로 판단하시겠어요?",
+              ]
+            : [
+                role + " 직무를 수행할 때 가장 핵심이 되는 역량 한 가지와 그 이유를 말씀해 주세요.",
+                "데이터나 근거를 바탕으로 기존 방식을 개선하거나 설득했던 기준은 무엇인가요?",
+                role + " 분야에서 본인이 다른 지원자와 차별화할 수 있는 강점은 무엇이라고 생각하나요?",
+              ];
+
+          var situationBank = [
+            "마감 기한이 임박했는데 완성도가 기대에 못 미치는 상황이라면 어떻게 대처하시겠어요?",
+            "동료나 선배의 판단이 비효율적으로 보일 때 본인 의견을 어떻게 전달하시겠어요?",
+            "입사(입학) 후 전혀 경험해보지 못한 낯선 과제를 맡게 된다면 첫 일주일을 어떻게 보내시겠어요?",
+          ];
+
+          if (mode === "focused") {
+            if (focusedType === "압박") {
+              situationBank.unshift("본인의 답변에 근거가 부족하다는 지적을 받는다면 어떻게 바로 보완해 설명하시겠어요?");
+            } else if (focusedType === "PT") {
+              majorBank.unshift(role + " 분야의 핵심 문제 하나를 30초 안에 결론부터 구조화해 발표해 보시겠어요?");
+            } else if (focusedType === "토론") {
+              situationBank.unshift("팀 내 다수 의견과 본인의 결론이 정반대일 때 어떻게 상대를 설득하시겠어요?");
+            }
+          }
+
+          var reviewIdx = 0;
+          var knowledgeIdx = 0;
+          var expIdx = 0;
+          var majorIdx = 0;
+          var sitIdx = 0;
+
+          var plan = [];
+          for (var i = 0; i < totalQuestions; i++) {
+            var qNum = i + 1;
+            var stage = getStageInfo(qNum, totalQuestions);
+            var question = "";
+            var basis = "모델 지식 기반";
+
+            if (qNum === 1) {
+              question = "안녕하세요. 편하게 1분 정도 자기소개부터 해주시겠어요?";
+            } else if (qNum === 2) {
+              question = "왜 " + org + " " + role + "에 지원하셨나요?";
+            } else if (qNum >= totalQuestions) {
+              question = "마지막으로 꼭 하고 싶은 말씀이나 궁금한 점이 있으신가요?";
+            } else if (stage.stageName === "경험·역량") {
+              if (reviewIdx < reviewItems.length && expIdx > 0) {
+                question = reviewItems[reviewIdx++].question;
+                basis = "후기 기반";
+              } else {
+                question = expBank[expIdx++ % expBank.length];
+              }
+            } else if (stage.stageName.indexOf("직무·전공") !== -1) {
+              if (reviewIdx < reviewItems.length) {
+                question = reviewItems[reviewIdx++].question;
+                basis = "후기 기반";
+              } else if (knowledgeIdx < knowledgeItems.length && majorIdx === 0) {
+                question = knowledgeItems[knowledgeIdx++].question;
+                majorIdx++;
+              } else {
+                question = majorBank[majorIdx++ % majorBank.length];
+              }
+            } else {
+              if (reviewIdx < reviewItems.length) {
+                question = reviewItems[reviewIdx++].question;
+                basis = "후기 기반";
+              } else {
+                question = situationBank[sitIdx++ % situationBank.length];
+              }
+            }
+
+            plan.push({
+              questionNumber: qNum,
+              stageName: stage.stageName,
+              question: question,
+              questionBasis: basis,
+            });
+          }
+          return plan;
+        }
+
+        /* =========================================================
+         * 6. Answer Relevance Judgment & Targeted Follow-up Engine
+         * ========================================================= */
+        function isPersonalBackgroundOffTopic(text) {
+          return /(아버지|어머니|부모님|엄마|아빠|형제|자매|집안|재산|금수저|출신\s*지역|고향|부산|대구|광주|대전|인천|제주|강남|평수|아파트|공무원|교수|의사|사업가)[^\n]{0,20}(이시고|이십니다|입니다|살았|자랐|출신|직업|돈|자산)/.test(
+            text
+          ) || /(아버지|어머니|부모님)\s*(직업|회사|일|가정|집안)/.test(text);
+        }
+
+        function hasConcreteEvidence(text) {
+          var clean = text.replace(/\s+/g, " ").trim();
+          var hasNumberOrMetric = /\d+|%|배|건|명|초|분|시간|주|개월|년|원|점/.test(clean);
+          var hasActionResult =
+            /(제안|구축|도입|해결|개선|분석|설계|조율|정리|테스트|검증|발표|적용|줄여|높여|단축|달성|완료|결과적으로)/.test(
+              clean
+            );
+          var hasStructureCue = /(예를 들어|구체적으로|첫째|둘째|당시|때문에|결과|이를 통해)/.test(
+            clean
+          );
+          return (
+            clean.length >= 75 &&
+            ((hasNumberOrMetric && hasActionResult) || (hasActionResult && hasStructureCue && clean.length >= 105))
+          );
+        }
+
+        function extractCoreIntentLabel(mainQuestion) {
+          if (/자기소개/.test(mainQuestion)) return "본인의 핵심 강점과 지원 직무와의 연결점";
+          if (/지원|동기|이유/.test(mainQuestion)) return "지원 동기와 본인이 기여할 수 있는 점";
+          if (/갈등|협업|조율/.test(mainQuestion)) return "협업 갈등 상황에서 본인이 취한 해결 행동";
+          if (/장애|오류|성능|기준|전공|개념/.test(mainQuestion)) return "직무·전공 관련 구체적 해결 기준이나 원리";
+          if (/대처|상황|설득|마감|낯선/.test(mainQuestion)) return "해당 상황에서의 판단 기준과 행동 계획";
+          return "질문과 직접 연결된 본인의 경험과 역량";
+        }
+
+        function extractCandidateFocusTerm(answerText) {
+          var stopWords = /^(저는|제가|그냥|정말|매우|아주|그리고|하지만|그래서|팀에서|프로젝트|활동에서|경험이|있었습니다|했습니다|합니다|입니다|같습니다|때문입니다)$/;
+          var words = answerText
+            .replace(/[^\uAC00-\uD7A3a-zA-Z0-9\s]/g, " ")
+            .split(/\s+/)
+            .map(function (w) { return w.trim(); })
+            .filter(function (w) { return w.length >= 2 && w.length <= 14 && !stopWords.test(w); });
+
+          // Prefer domain/action terms
+          var preferred = words.filter(function (w) {
+            return /(갈등|조율|대화|소통|성능|최적화|개선|개발|설계|분석|리더|팀장|협업|데이터|테스트|배포|연구|탐구|동아리|봉사|발표|설득|마감|우선순위|오류|장애)/.test(
+              w
+            );
+          });
+          var chosen = preferred.length > 0 ? preferred[0] : words[0];
+          return chosen || "";
+        }
+
+        function evaluateCandidateTurn(params) {
+          var answer = (params.answer || "").trim();
+          var mainQuestion = params.mainQuestion || "";
+          var lastQuestion = params.lastQuestion || mainQuestion;
+          var followUpCount = params.followUpCount || 0;
+          var offTopicCount = params.offTopicCount || 0;
+          var isPressure = params.interviewMode === "focused" && params.focusedType === "압박";
+
+          var compact = answer.replace(/\s+/g, "");
+          var isPassOrIdk = /^(모르겠|잘 모르|패스|pass|글쎄요|없습니다|생각이 안|답변하기 어렵)/i.test(
+            answer
+          );
+          var isTooShortNoise = compact.length < 6 || /^([ㅋㅎㅠㅜ?!.\-])+$/.test(compact);
+          var isUnrelatedFoodWeather =
+            /(점심|저녁|메뉴|김치찌개|날씨|비\s*가|취미|게임|유튜브|잠을)/.test(answer) &&
+            !/(프로젝트|서비스|개발|분석|마케팅|고객|사용자|업무|활동)/.test(answer);
+          var isPersonalOffTopic = isPersonalBackgroundOffTopic(answer);
+
+          var relevance = "정상";
+          var needsFollowUp = false;
+
+          if (isPassOrIdk || isTooShortNoise || isUnrelatedFoodWeather || isPersonalOffTopic) {
+            relevance = "무관";
+          } else {
+            // Check overlap with question intent
+            var mentionsFamilyPlusSomeContent =
+              /(부모|아버지|어머니|고향|출신)/.test(answer) && compact.length < 45;
+            if (mentionsFamilyPlusSomeContent) {
+              relevance = "부분적으로 관련";
+              needsFollowUp = true;
+            } else {
+              var concrete = hasConcreteEvidence(answer);
+              if (concrete) {
+                relevance = "정상";
+                needsFollowUp = isPressure && followUpCount === 0 && !/\d/.test(answer);
+              } else {
+                relevance = "정상";
+                needsFollowUp = followUpCount < 2;
+              }
+            }
+          }
+
+          var action = "followup";
+          if (relevance === "무관") {
+            action = offTopicCount >= 1 ? "skip_next_question" : "reask";
+          } else if (relevance === "정상" && (!needsFollowUp || followUpCount >= 2)) {
+            action = "next_question";
+          } else if (relevance === "부분적으로 관련" && followUpCount >= 2) {
+            action = "next_question";
+          }
+
+          var message = "";
+          if (action === "reask") {
+            var coreIntent = extractCoreIntentLabel(mainQuestion || lastQuestion);
+            message =
+              "제가 여쭌 건 " +
+              coreIntent +
+              "입니다. 경험이나 역량 중심으로 다시 말씀해 주시겠어요?";
+          } else if (action === "followup") {
+            var keyword = extractCandidateFocusTerm(answer);
+            if (relevance === "부분적으로 관련") {
+              message = "질문의 핵심에 맞춰 본인이 직접 실행한 행동과 결과를 말씀해 주시겠어요?";
+            } else if (keyword) {
+              if (followUpCount === 0) {
+                message =
+                  "방금 '" +
+                  keyword +
+                  "'을 말씀하셨는데, 본인이 직접 한 행동과 구체적 결과는 어땠나요?";
+              } else {
+                message =
+                  "'" +
+                  keyword +
+                  "' 과정에서 다른 대안 대신 그 방식을 택한 가장 큰 이유는 무엇인가요?";
+              }
+            } else if (followUpCount === 0) {
+              message = "말씀하신 경험에서 본인이 직접 맡은 역할과 구체적 수치를 알려주시겠어요?";
+            } else {
+              message = "그 선택을 내린 가장 핵심적인 근거 한 가지만 더 말씀해 주시겠어요?";
+            }
+          }
+
+          // Enforce <= 80 chars concise spoken rule
+          if (message.length > 80) {
+            message = message.slice(0, 77).trim() + "?";
+          }
+
+          return {
+            relevance: relevance,
+            action: action,
+            message: message,
+          };
+        }
+
+        function evaluateClosingTurn(answer) {
+          var trimmed = (answer || "").trim();
+          var askedQuestion =
+            /[?？]|궁금|여쭤|알고\s*싶|질문/.test(trimmed) &&
+            !/^(없습니다|없어요|별도로 없습니다|괜찮습니다|감사합니다)[.!]?$/.test(trimmed);
+
+          if (!askedQuestion) {
+            return {
+              needsStream: false,
+              message: "좋은 말씀 감사합니다. 오늘 면접은 여기서 마치겠습니다. 수고 많으셨습니다.",
+            };
+          }
+          return {
+            needsStream: true,
+            message: "좋은 질문 감사합니다. 합류 후 팀 온보딩 과정에서 자세히 안내드리겠습니다. 오늘 수고 많으셨습니다.",
+          };
+        }
+
+        /* =========================================================
+         * 7. Speech Metrics & Feedback Report Generator
+         * ========================================================= */
+        function countFillers(text) {
+          if (!text || !text.trim()) {
+            return { fillerCounts: { 음: 0, 어: 0, 그니까: 0, 약간: 0 }, totalFillers: 0 };
+          }
+          var um = text.match(/(?:^|[\s,.!?~…"'()])(음+|으음)(?=$|[\s,.!?~…"'()])/g);
+          var eo = text.match(/(?:^|[\s,.!?~…"'()])(어+|어어)(?=$|[\s,.!?~…"'()])/g);
+          var geu = text.match(/(?:^|[\s,.!?~…"'()])(그니까요?|그러니까요?)(?=$|[\s,.!?~…"'()])/g);
+          var yak = text.match(/(?:^|[\s,.!?~…"'()])약간(?=$|[\s,.!?~…"'()])/g);
+          var counts = {
+            음: um ? um.length : 0,
+            어: eo ? eo.length : 0,
+            그니까: geu ? geu.length : 0,
+            약간: yak ? yak.length : 0,
+          };
+          return {
+            fillerCounts: counts,
+            totalFillers: counts.음 + counts.어 + counts.그니까 + counts.약간,
+          };
+        }
+
+        function calcSpeechMetrics(finalText, rawSpoken, voiceMs, turnMs) {
+          var usedVoice = voiceMs >= 1000;
+          var durationSec = Math.max(1, Math.round((usedVoice ? voiceMs : turnMs) / 1000));
+          var charCount = finalText.replace(/\s+/g, "").length;
+          var charsPerMin = Math.round((charCount / durationSec) * 60);
+          var scanText = usedVoice && rawSpoken && rawSpoken.trim() ? rawSpoken : finalText;
+          var fillers = countFillers(scanText);
+          return {
+            durationSec: durationSec,
+            charCount: charCount,
+            charsPerMin: charsPerMin,
+            usedVoice: usedVoice,
+            fillerCounts: fillers.fillerCounts,
+            totalFillers: fillers.totalFillers,
+          };
+        }
+
+        function getSpeedAssessment(cpm, hasVoice) {
+          if (!hasVoice) return "텍스트 입력 기준";
+          if (cpm < 220) return "조금 느린 편 (권장 250~360자/분)";
+          if (cpm <= 380) return "안정적인 적정 속도 (권장 250~360자/분)";
+          return "조금 빠른 편 (권장 250~360자/분)";
+        }
+
+        function buildQaPairs(messages) {
+          var map = {};
+          var keys = [];
+          for (var i = 0; i < messages.length; i++) {
+            var m = messages[i];
+            if (m.turnType === "closing") continue;
+            var idx = m.questionIndex;
+            if (!map[idx]) {
+              map[idx] = {
+                questionNumber: idx,
+                questionCategory: m.questionCategory || "",
+                mainQuestion: "",
+                mainAnswer: "",
+                mainSpeechMetrics: null,
+                followUps: [],
+              };
+              keys.push(idx);
+            }
+            var item = map[idx];
+            if (m.sender === "interviewer") {
+              if (m.turnType === "main") {
+                item.mainQuestion = m.text;
+                if (m.questionCategory) item.questionCategory = m.questionCategory;
+              } else if (m.turnType === "followup") {
+                item.followUps.push({ question: m.text, answer: "", speechMetrics: null });
+              }
+            } else {
+              if (m.turnType === "main") {
+                item.mainAnswer = m.text;
+                item.mainSpeechMetrics = m.speechMetrics || null;
+              } else if (m.turnType === "reask") {
+                item.mainAnswer = item.mainAnswer
+                  ? item.mainAnswer + "\n(재질문 답변) " + m.text
+                  : m.text;
+                item.mainSpeechMetrics = m.speechMetrics || item.mainSpeechMetrics;
+              } else if (m.turnType === "followup") {
+                if (item.followUps.length > 0) {
+                  var lastFu = item.followUps[item.followUps.length - 1];
+                  lastFu.answer = m.text;
+                  lastFu.speechMetrics = m.speechMetrics || null;
+                }
+              }
+            }
+          }
+
+          keys.sort(function (a, b) { return a - b; });
+          var pairs = [];
+          for (var j = 0; j < keys.length; j++) {
+            var p = map[keys[j]];
+            if (p.mainQuestion && p.mainAnswer) {
+              p.followUpQuestion = p.followUps
+                .map(function (f, fi) {
+                  return p.followUps.length > 1 ? "(" + (fi + 1) + ") " + f.question : f.question;
+                })
+                .filter(Boolean)
+                .join(" / ");
+              p.followUpAnswer = p.followUps
+                .map(function (f, fi) {
+                  return p.followUps.length > 1 ? "(" + (fi + 1) + ") " + f.answer : f.answer;
+                })
+                .filter(Boolean)
+                .join(" / ");
+              p.followUpSpeechMetrics = p.followUps[0] ? p.followUps[0].speechMetrics : null;
+              pairs.push(p);
+            }
+          }
+          return pairs;
+        }
+
+        function aggregateSpeech(qaPairs) {
+          var all = [];
+          for (var i = 0; i < qaPairs.length; i++) {
+            if (qaPairs[i].mainSpeechMetrics) all.push(qaPairs[i].mainSpeechMetrics);
+            if (qaPairs[i].followUpSpeechMetrics) all.push(qaPairs[i].followUpSpeechMetrics);
+          }
+          var totalDurationSec = 0;
+          var totalCharCount = 0;
+          var voiceDur = 0;
+          var voiceChars = 0;
+          var voiceTurns = 0;
+          var fillerCounts = { 음: 0, 어: 0, 그니까: 0, 약간: 0 };
+
+          for (var j = 0; j < all.length; j++) {
+            var m = all[j];
+            totalDurationSec += m.durationSec;
+            totalCharCount += m.charCount;
+            if (m.usedVoice) {
+              voiceTurns++;
+              voiceDur += m.durationSec;
+              voiceChars += m.charCount;
+            }
+            fillerCounts.음 += m.fillerCounts.음;
+            fillerCounts.어 += m.fillerCounts.어;
+            fillerCounts.그니까 += m.fillerCounts.그니까;
+            fillerCounts.약간 += m.fillerCounts.약간;
+          }
+
+          var hasVoice = voiceTurns > 0 && voiceDur > 0;
+          var avgCpm = hasVoice
+            ? Math.round((voiceChars / voiceDur) * 60)
+            : totalDurationSec > 0
+            ? Math.round((totalCharCount / totalDurationSec) * 60)
+            : 0;
+
+          return {
+            totalDurationSec: totalDurationSec,
+            totalCharCount: totalCharCount,
+            avgCharsPerMin: avgCpm,
+            voiceTurnCount: voiceTurns,
+            totalTurnCount: all.length,
+            speedAssessment: getSpeedAssessment(avgCpm, hasVoice),
+            fillerCounts: fillerCounts,
+            totalFillers: fillerCounts.음 + fillerCounts.어 + fillerCounts.그니까 + fillerCounts.약간,
+          };
+        }
+
+        function generateFeedbackReport(profile, qaPairs) {
+          var feedbacks = [];
+          var sumContent = 0;
+          var sumStructure = 0;
+          var sumSpecificity = 0;
+          var sumAttitude = 0;
+
+          for (var i = 0; i < qaPairs.length; i++) {
+            var qa = qaPairs[i];
+            var ans = qa.mainAnswer.trim();
+            var fullAns = (ans + " " + (qa.followUpAnswer || "")).trim();
+            var len = ans.length;
+            var hasNumber = /\d+|%|명|배|건|주|개월|년/.test(fullAns);
+            var hasReasoning = /(왜냐하면|때문에|기준|고려해|판단해|이유는|목표)/.test(fullAns) || len >= 70;
+            var hasConclusionFirst = len >= 35 && !/^(음|어|글쎄|모르)/.test(ans);
+            var hasConcrete = hasNumber || /(프로젝트|서비스|동아리|학생회|인턴|해결|도입|구축|개선)/.test(fullAns);
+            var hasClosing = /(배웠|기여하|하겠습니다|입니다|다짐|성장)/.test(fullAns) || len >= 60;
+
+            var cScore = Math.min(96, Math.max(52, 55 + Math.round(len / 6) + (hasReasoning ? 8 : 0)));
+            var sScore =
+              52 +
+              (hasConclusionFirst ? 12 : 0) +
+              (hasReasoning ? 12 : 0) +
+              (hasConcrete ? 10 : 0) +
+              (hasClosing ? 8 : 0);
+            var spScore = Math.min(96, Math.max(48, 50 + (hasConcrete ? 20 : 0) + (hasNumber ? 16 : 0) + (qa.followUpAnswer ? 6 : 0)));
+            var aScore = Math.min(95, Math.max(60, 70 + (qa.followUpAnswer ? 8 : 4) + (len >= 50 ? 10 : 0)));
+
+            sumContent += cScore;
+            sumStructure += sScore;
+            sumSpecificity += spScore;
+            sumAttitude += aScore;
+
+            var quotedSnippet = ans.slice(0, 34) + (ans.length > 34 ? "..." : "");
+            var strengths =
+              '"' +
+              quotedSnippet +
+              '"라고 답하며 질문 의도에 맞춰 핵심 방향을 잡아낸 점이 좋습니다.' +
+              (qa.followUpAnswer ? " 이어진 꼬리질문에서도 논점을 놓치지 않고 응답을 보완했습니다." : "");
+
+            var missingParts = [];
+            if (!hasConclusionFirst) missingParts.push("첫 문장에 결론을 먼저 두괄식으로 배치하고");
+            if (!hasNumber) missingParts.push("정량 수치나 구체적 변화 결과를 한 가지 더 넣고");
+            if (!hasReasoning) missingParts.push("왜 그 선택을 했는지 판단 근거를 1문장 추가해");
+
+            var improvements =
+              missingParts.length > 0
+                ? missingParts.join(", ") + " 답변의 설득력을 높여 보세요."
+                : "현재 구조와 근거가 탄탄합니다. 마지막 문장에서 " +
+                  profile.role +
+                  " 직무(학과)에 어떻게 기여할지 한 번 더 강조하면 더욱 완성도가 높아집니다.";
+
+            var bgHint = (profile.background || "").trim();
+            var betterExample =
+              "[결론] " +
+              (ans.length >= 20 ? ans.split(/[.?!\n]/)[0].trim() : profile.role + "에 기여하기 위해 제 경험을 중심으로 말씀드리겠습니다.") +
+              "\n[근거·사례] 실제로 " +
+              (hasConcrete ? quotedSnippet : bgHint ? "'" + bgHint.slice(0, 38) + "' 과정에서" : "[여기에 본인이 직접 맡은 과제·경험을 추가]") +
+              " 당시 핵심 문제를 정의하고 직접 실행해 [구체적 수치나 변화 결과]를 만들었습니다." +
+              "\n[마무리] 이 경험을 바탕으로 " +
+              profile.organization +
+              "에서도 주도적으로 문제를 해결하겠습니다.";
+
+            feedbacks.push({
+              questionNumber: qa.questionNumber,
+              mainQuestion: qa.mainQuestion,
+              followUpQuestion: qa.followUpQuestion || "",
+              strengths: strengths,
+              improvements: improvements,
+              structureCheck: {
+                hasConclusionFirst: hasConclusionFirst,
+                hasReasoning: hasReasoning,
+                hasConcreteExample: hasConcrete,
+                hasClosing: hasClosing,
+              },
+              betterAnswerExample: betterExample,
+            });
+          }
+
+          var n = Math.max(1, qaPairs.length);
+          var scores = {
+            content: Math.round(sumContent / n),
+            structure: Math.round(sumStructure / n),
+            specificity: Math.round(sumSpecificity / n),
+            attitude: Math.round(sumAttitude / n),
+          };
+          var overall = Math.round((scores.content + scores.structure + scores.specificity + scores.attitude) / 4);
+
+          return {
+            overallScore: overall,
+            overallComment:
+              overall >= 82
+                ? "질문 핵심을 정확히 짚고 구체적인 경험과 논리를 균형 있게 전달했습니다. 실전에서는 첫 문장 두괄식과 수치 근거만 한 번 더 점검하면 충분합니다."
+                : overall >= 68
+                ? "전반적인 답변 흐름이 안정적이며 질문 의도를 잘 따라가고 있습니다. 일부 문항에서 본인이 직접 맡은 역할과 결과 수치를 보강하면 점수가 크게 올라갑니다."
+                : "면접에 끝까지 성실히 응해주셨습니다. 각 질문마다 결론을 첫 문장에 두고, 실제로 겪은 사례 1가지와 결과를 붙이는 연습을 추천합니다.",
+            scores: scores,
+            questionFeedbacks: feedbacks,
+            nextPracticeItems: [
+              "첫 문장에 질문에 대한 핵심 결론을 20자 내외로 먼저 말하기(두괄식)",
+              "경험 답변마다 본인의 역할과 구체적인 수치·결과 변화를 1가지 이상 포함하기",
+              "꼬리질문에 대비해 선택한 대안과 판단 이유를 1~2문장으로 미리 정리하기",
+            ],
+          };
+        }
+
+        /* =========================================================
+         * 8. Application State & Speech Controllers
+         * ========================================================= */
+        var state = {
+          step: "input", // input | research | interview | result
+          profile: {
+            organization: "",
+            role: "",
+            interviewMode: "comprehensive",
+            focusedType: "인성",
+            interviewLength: "medium",
+            background: "",
+            pastedReviews: "",
+          },
+          inputError: null,
+          research: null,
+          isFromCache: false,
+          cachedAt: null,
+          variationCount: 0,
+          selectedRound: "전체 종합",
+          activeMode: "comprehensive",
+          activeFocusedType: "인성",
+          activeLength: "medium",
+
+          // Interview state
+          plannedQuestions: [],
+          preloadedNextMain: null,
+          messages: [],
+          streamingBubble: null,
+          isWaiting: false,
+          currentQuestionIndex: 1,
+          currentTurnType: "main",
+          followUpCount: 0,
+          offTopicCount: 0,
+          isComplete: false,
+          elapsedSec: 0,
+          elapsedTimerId: null,
+          streamTimerId: null,
+          inputDraft: "",
+
+          // Voice STT / TTS
+          ttsSupported: typeof window !== "undefined" && "speechSynthesis" in window,
+          voiceEnabled: true,
+          isSpeaking: false,
+          activeUtterances: 0,
+          sttSupported: Boolean(
+            typeof window !== "undefined" &&
+              (window.SpeechRecognition || window.webkitSpeechRecognition)
+          ),
+          isListening: false,
+          interimText: "",
+          micError: null,
+          recognition: null,
+          micStartMs: null,
+          accumulatedMicMs: 0,
+          rawSpokenText: "",
+          turnStartMs: Date.now(),
+
+          // Corner timing telemetry
+          turnMetrics: null,
+          metricsExpanded: true,
+          pendingTtsMeasure: null,
+
+          // Result
+          qaPairs: [],
+          report: null,
+        };
+
+        var rootEl = document.getElementById("app-root");
+        var metricsHudEl = document.getElementById("turn-metrics-panel");
+        var printReportEl = document.getElementById("print-report");
+
+        function updateHeaderNav() {
+          var canResearch = Boolean(state.research);
+          var canInterview = Boolean(state.research);
+          var canResult = state.qaPairs.length > 0;
+
+          var desktopBtns = document.querySelectorAll("#desktop-nav .nav-step-btn");
+          for (var i = 0; i < desktopBtns.length; i++) {
+            var btn = desktopBtns[i];
+            var s = btn.getAttribute("data-step");
+            var unlocked =
+              s === "input" ||
+              (s === "research" && canResearch) ||
+              (s === "interview" && canInterview) ||
+              (s === "result" && canResult);
+            btn.setAttribute("data-active", String(state.step === s));
+            btn.setAttribute("data-unlocked", String(unlocked));
+            btn.disabled = !unlocked;
+          }
+
+          var mobileItems = document.querySelectorAll("#mobile-nav .mobile-step-item");
+          for (var j = 0; j < mobileItems.length; j++) {
+            var item = mobileItems[j];
+            item.setAttribute("data-active", String(state.step === item.getAttribute("data-step")));
+          }
+        }
+
+        function stopTimer() {
+          if (state.elapsedTimerId !== null) {
+            window.clearInterval(state.elapsedTimerId);
+            state.elapsedTimerId = null;
+          }
+        }
+
+        function startTimer() {
+          stopTimer();
+          state.elapsedTimerId = window.setInterval(function () {
+            if (state.step !== "interview" || state.isComplete) return;
+            state.elapsedSec += 1;
+            var clockEl = document.getElementById("interview-elapsed-clock");
+            if (clockEl) {
+              clockEl.textContent = "경과 " + formatElapsed(state.elapsedSec);
+            }
+          }, 1000);
+        }
+
+        function stopSpeaking() {
+          state.activeUtterances = 0;
+          if (state.ttsSupported) {
+            try {
+              window.speechSynthesis.cancel();
+            } catch (e) {
+              // ignore
+            }
+          }
+          state.isSpeaking = false;
+        }
+
+        function enqueueSpeechChunk(chunkText, force) {
+          var clean = String(chunkText || "").trim();
+          if (!clean || !state.ttsSupported) return;
+          if (!force && !state.voiceEnabled) return;
+
+          try {
+            var utt = new SpeechSynthesisUtterance(clean);
+            utt.lang = "ko-KR";
+            utt.rate = 1.0;
+            var voices = window.speechSynthesis.getVoices();
+            for (var i = 0; i < voices.length; i++) {
+              if (voices[i].lang && voices[i].lang.toLowerCase().indexOf("ko") === 0) {
+                utt.voice = voices[i];
+                break;
+              }
+            }
+            state.activeUtterances += 1;
+            utt.onstart = function () {
+              state.isSpeaking = true;
+              if (state.pendingTtsMeasure && !state.pendingTtsMeasure.recorded) {
+                state.pendingTtsMeasure.recorded = true;
+                var ttsMs = Math.round(performance.now() - state.pendingTtsMeasure.sendPerf);
+                if (state.turnMetrics) {
+                  state.turnMetrics.ttsStartMs = ttsMs;
+                  state.turnMetrics.ttsStatus = "started";
+                  renderMetricsHud();
+                }
+              }
+            };
+            var onFinish = function () {
+              state.activeUtterances = Math.max(0, state.activeUtterances - 1);
+              if (state.activeUtterances === 0) {
+                state.isSpeaking = false;
+              }
+            };
+            utt.onend = onFinish;
+            utt.onerror = onFinish;
+            window.speechSynthesis.speak(utt);
+          } catch (e) {
+            state.activeUtterances = 0;
+            state.isSpeaking = false;
+          }
+        }
+
+        function speakText(text, force) {
+          if (!state.ttsSupported) return;
+          if (!force && !state.voiceEnabled) return;
+          stopSpeaking();
+          enqueueSpeechChunk(text, force);
+        }
+
+        function stopListening() {
+          if (state.micStartMs !== null) {
+            state.accumulatedMicMs += Date.now() - state.micStartMs;
+            state.micStartMs = null;
+          }
+          if (state.recognition) {
+            try {
+              state.recognition.stop();
+            } catch (e) {
+              // ignore
+            }
+            state.recognition = null;
+          }
+          state.isListening = false;
+          state.interimText = "";
+        }
+
+        function startListening() {
+          var Ctor = window.SpeechRecognition || window.webkitSpeechRecognition;
+          if (!Ctor || state.isWaiting || state.isComplete) return;
+          stopSpeaking();
+          state.micError = null;
+
+          try {
+            var rec = new Ctor();
+            rec.lang = "ko-KR";
+            rec.continuous = true;
+            rec.interimResults = true;
+
+            rec.onstart = function () {
+              state.micStartMs = Date.now();
+              state.isListening = true;
+              state.micError = null;
+              renderInterview();
+            };
+
+            rec.onresult = function (event) {
+              var finalChunk = "";
+              var interimChunk = "";
+              for (var i = event.resultIndex; i < event.results.length; i++) {
+                var res = event.results[i];
+                var txt = res[0] ? res[0].transcript : "";
+                if (res.isFinal) {
+                  finalChunk += txt + " ";
+                } else {
+                  interimChunk += txt;
+                }
+              }
+              if (finalChunk.trim()) {
+                var clean = finalChunk.trim();
+                state.rawSpokenText = state.rawSpokenText
+                  ? state.rawSpokenText + " " + clean
+                  : clean;
+                state.inputDraft = state.inputDraft.trim()
+                  ? state.inputDraft.replace(/\s+$/, "") + " " + clean
+                  : clean;
+              }
+              state.interimText = interimChunk.trim();
+              var textarea = document.getElementById("chat-input-box");
+              if (textarea) {
+                textarea.value = state.inputDraft;
+              }
+              var interimEl = document.getElementById("listening-interim-text");
+              if (interimEl) {
+                interimEl.textContent =
+                  state.interimText || "말씀하시면 아래 입력창에 글자로 변환됩니다.";
+              }
+            };
+
+            rec.onerror = function (event) {
+              if (event.error === "aborted") return;
+              if (event.error === "not-allowed" || event.error === "service-not-allowed") {
+                state.micError =
+                  "마이크 권한이 차단되어 있습니다. 브라우저 설정에서 마이크를 허용하거나 텍스트로 입력해 주세요.";
+              } else if (event.error === "audio-capture") {
+                state.micError = "마이크 장치를 찾을 수 없습니다. 텍스트로 답변을 입력해 주세요.";
+              } else if (event.error === "no-speech") {
+                state.micError = "목소리가 잘 들리지 않았습니다. 다시 눌러 말씀해 주세요.";
+              } else {
+                state.micError = "음성 인식 중 오류가 발생했습니다(" + event.error + "). 텍스트로 이어서 답변하실 수 있습니다.";
+              }
+              renderInterview();
+            };
+
+            rec.onend = function () {
+              if (state.micStartMs !== null) {
+                state.accumulatedMicMs += Date.now() - state.micStartMs;
+                state.micStartMs = null;
+              }
+              state.recognition = null;
+              state.isListening = false;
+              state.interimText = "";
+              renderInterview();
+            };
+
+            state.recognition = rec;
+            rec.start();
+          } catch (e) {
+            state.micError = "음성 인식을 시작하지 못했습니다. 텍스트 입력을 이용해 주세요.";
+            state.isListening = false;
+            renderInterview();
+          }
+        }
+
+        function resetTurnSpeechTracking() {
+          state.accumulatedMicMs = 0;
+          state.micStartMs = null;
+          state.rawSpokenText = "";
+          state.turnStartMs = Date.now();
+          state.interimText = "";
+          state.micError = null;
+        }
+
+        /* =========================================================
+         * 9. Metrics HUD Renderer
+         * ========================================================= */
+        function fmtMsSec(ms) {
+          if (ms === null || ms === undefined || isNaN(ms)) return "-";
+          return (ms / 1000).toFixed(2) + "s";
+        }
+
+        function renderMetricsHud() {
+          if (state.step !== "interview" || !state.turnMetrics) {
+            metricsHudEl.hidden = true;
+            metricsHudEl.innerHTML = "";
+            return;
+          }
+          metricsHudEl.hidden = false;
+          var m = state.turnMetrics;
+          var statusText =
+            m.status === "measuring" ? "측정 중" : fmtMsSec(m.totalUntilShownMs);
+          var statusColor =
+            m.status === "measuring"
+              ? "color:var(--amber);"
+              : m.status === "error"
+              ? "color:var(--red);"
+              : "color:var(--teal);";
+
+          var ttsDisplay =
+            m.ttsStatus === "started"
+              ? fmtMsSec(m.ttsStartMs)
+              : m.ttsStatus === "disabled"
+              ? "음성 꺼짐"
+              : m.ttsStatus === "unsupported"
+              ? "미지원"
+              : "대기 중...";
+
+          metricsHudEl.innerHTML =
+            '<div class="metrics-hud-head">' +
+            '  <div class="row-wrap" style="gap:6px;">' +
+            iconSvg("clock", "icon-xs") +
+            '    <strong style="color:var(--text-primary);">응답 측정</strong>' +
+            '    <span class="font-mono-tabular" style="font-weight:600;' +
+            statusColor +
+            '">' +
+            escapeHtml(statusText) +
+            "</span>" +
+            "  </div>" +
+            '  <button type="button" id="hud-toggle-btn" style="background:none;border:0;padding:2px;cursor:pointer;color:var(--text-muted);" aria-label="' +
+            (state.metricsExpanded ? "측정 패널 접기" : "측정 패널 펼치기") +
+            '">' +
+            iconSvg(state.metricsExpanded ? "chevDown" : "chevUp", "icon-xs") +
+            "</button>" +
+            "</div>" +
+            (state.metricsExpanded
+              ? '<div class="metrics-hud-body">' +
+                '  <div class="metrics-row" style="padding-bottom:4px;border-bottom:1px solid #F1F5F9;color:var(--text-muted);">' +
+                "    <span>" +
+                escapeHtml(m.turnLabel) +
+                "</span>" +
+                '    <strong style="color:var(--text-primary);">' +
+                escapeHtml(m.actionLabel) +
+                "</strong>" +
+                "  </div>" +
+                '  <div class="metrics-row"><span>실행 엔진</span><span class="font-mono-tabular">로컬 실시간 엔진</span></div>' +
+                '  <div class="metrics-row"><span>1) 관련성 판단</span><span class="font-mono-tabular">' +
+                (m.relevanceMs === 0 ? "생략 (0.00s)" : fmtMsSec(m.relevanceMs)) +
+                "</span></div>" +
+                '  <div class="metrics-row"><span>2) 응답 대기(첫 표시)</span><span class="font-mono-tabular">' +
+                fmtMsSec(m.waitToFirstResponseMs) +
+                "</span></div>" +
+                '  <div class="metrics-row"><span>3) 질문 생성 완료</span><span class="font-mono-tabular">' +
+                (m.generationMs === 0 ? "본 질문 이동 (0.00s)" : fmtMsSec(m.generationMs)) +
+                "</span></div>" +
+                '  <div class="metrics-row"><span>4) 음성 읽기 시작</span><span class="font-mono-tabular">' +
+                escapeHtml(ttsDisplay) +
+                "</span></div>" +
+                "</div>"
+              : "");
+
+          var toggleBtn = document.getElementById("hud-toggle-btn");
+          if (toggleBtn) {
+            toggleBtn.onclick = function () {
+              state.metricsExpanded = !state.metricsExpanded;
+              renderMetricsHud();
+            };
+          }
+        }
+
+        /* =========================================================
+         * 10. Screen 1: Input Screen
+         * ========================================================= */
+        function renderInput() {
+          var p = state.profile;
+          var cached = getCachedResearch(p.organization, p.role, p.pastedReviews);
+
+          var focusedHtml = "";
+          if (p.interviewMode === "focused") {
+            focusedHtml =
+              '<div style="padding-top:8px;">' +
+              '  <div style="font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:8px;">집중 연습 유형 선택</div>' +
+              '  <div class="grid-5">' +
+              FOCUSED_TYPES.map(function (item) {
+                var sel = p.focusedType === item.type;
+                return (
+                  '<button type="button" class="focus-chip-btn" data-focused-type="' +
+                  escapeHtml(item.type) +
+                  '" aria-pressed="' +
+                  String(sel) +
+                  '">' +
+                  '  <div style="font-size:13px;font-weight:600;white-space:nowrap;">' +
+                  escapeHtml(item.type) +
+                  "</div>" +
+                  '  <div class="focus-chip-sub">' +
+                  escapeHtml(item.desc) +
+                  "</div>" +
+                  "</button>"
+                );
+              }).join("") +
+              "  </div>" +
+              "</div>";
+          }
+
+          var lengthHtml = LENGTH_OPTIONS.map(function (opt) {
+            var sel = p.interviewLength === opt.key;
+            return (
+              '<button type="button" class="choice-card" data-length="' +
+              opt.key +
+              '" aria-pressed="' +
+              String(sel) +
+              '">' +
+              '  <div class="choice-card-title">' +
+              escapeHtml(opt.label) +
+              "</div>" +
+              '  <div class="choice-card-desc font-mono-tabular">' +
+              escapeHtml(opt.summary) +
+              "</div>" +
+              "</button>"
+            );
+          }).join("");
+
+          var examplesHtml = QUICK_EXAMPLES.map(function (ex, idx) {
+            return (
+              '<button type="button" class="btn btn-subtle btn-sm" data-example-idx="' +
+              idx +
+              '">' +
+              iconSvg(ex.kind === "company" ? "building" : "grad", "icon-xs") +
+              escapeHtml(ex.label) +
+              "</button>"
+            );
+          }).join("");
+
+          var cacheNoticeHtml = cached
+            ? '<div class="inset-box row-wrap" style="gap:8px;font-size:12px;color:var(--text-secondary);">' +
+              '<span style="color:var(--teal);display:inline-flex;">' +
+              iconSvg("check", "icon-xs") +
+              "</span>" +
+              "<span><strong>" +
+              escapeHtml(cached.organization) +
+              " · " +
+              escapeHtml(cached.role) +
+              "</strong>의 저장된 리서치 요약이 있어 바로 불러옵니다. (다음 화면에서 새로 고침 가능)</span>" +
+              "</div>"
+            : "";
+
+          var errorHtml = state.inputError
+            ? '<div role="alert" class="status-banner status-error">' +
+              escapeHtml(state.inputError) +
+              "</div>"
+            : "";
+
+          var submitLabel = cached
+            ? "저장된 리서치 요약 불러오기"
+            : p.pastedReviews.trim()
+            ? "붙여넣은 후기 반영해 리서치하기"
+            : "면접 리서치 요약 만들기";
+
+          rootEl.innerHTML =
+            '<div class="container-narrow stack-lg">' +
+            "  <div>" +
+            '    <h1 class="page-title">지원할 곳의 면접 맥락을 정리하고,<br/>실전 맞춤 모의면접을 진행합니다</h1>' +
+            '    <p class="page-lead">면접 시작 전 리서치 단계에서 기관·직무 맥락과 붙여넣은 후기를 1회 요약해 저장해 두고, 이후 질문 생성·꼬리질문·피드백을 진행합니다. 같은 기관·직무는 저장된 요약을 재사용합니다.</p>' +
+            "  </div>" +
+            '  <form id="profile-form" class="surface-card p-lg stack-lg">' +
+            '    <div class="grid-2">' +
+            "      <div>" +
+            '        <label for="org-input" class="field-label">기관명 <span style="font-weight:400;color:var(--text-muted);">(회사 또는 대학교)</span></label>' +
+            '        <input id="org-input" class="text-input" type="text" value="' +
+            escapeHtml(p.organization) +
+            '" placeholder="예: 카카오, 삼성전자, 연세대학교" />' +
+            "      </div>" +
+            "      <div>" +
+            '        <label for="role-input" class="field-label">지원 직무 또는 학과</label>' +
+            '        <input id="role-input" class="text-input" type="text" value="' +
+            escapeHtml(p.role) +
+            '" placeholder="예: 서비스 기획, 백엔드 개발, 컴퓨터공학과" />' +
+            "      </div>" +
+            "    </div>" +
+            '    <div class="stack-sm">' +
+            '      <span class="field-label" style="margin-bottom:0;">면접 유형</span>' +
+            '      <div class="grid-2">' +
+            '        <button type="button" class="choice-card" data-mode="comprehensive" aria-pressed="' +
+            String(p.interviewMode === "comprehensive") +
+            '">' +
+            '          <div class="choice-card-title">종합 면접 (실제처럼) · 기본</div>' +
+            '          <div class="choice-card-desc">인성, 직무, 꼬리질문, 상황 질문이 실제 면접 흐름처럼 섞여서 나옵니다.</div>' +
+            "        </button>" +
+            '        <button type="button" class="choice-card" data-mode="focused" aria-pressed="' +
+            String(p.interviewMode === "focused") +
+            '">' +
+            '          <div class="choice-card-title">집중 연습</div>' +
+            '          <div class="choice-card-desc">인성 · 직무 · PT · 토론 · 압박 중 한 가지 유형만 선택해 깊이 연습합니다.</div>' +
+            "        </button>" +
+            "      </div>" +
+            focusedHtml +
+            "    </div>" +
+            '    <div class="stack-sm">' +
+            '      <div class="row-between">' +
+            '        <span class="field-label" style="margin-bottom:0;">면접 길이</span>' +
+            '        <span style="font-size:12px;color:var(--text-muted);">실제 면접 흐름 순서 · 답변 구체성에 따라 꼬리질문 0~2회</span>' +
+            "      </div>" +
+            '      <div class="grid-3">' +
+            lengthHtml +
+            "      </div>" +
+            "    </div>" +
+            "    <div>" +
+            '      <label for="bg-input" class="field-label">내 경력 · 상황 간단 입력 <span style="font-weight:400;color:var(--text-muted);">(선택)</span></label>' +
+            '      <p class="field-hint">여기에 적은 경력·프로젝트나 학생부(세특·동아리·탐구 활동) 내용을 우선 활용해 질문·꼬리질문과 답변 예시를 만듭니다.</p>' +
+            '      <textarea id="bg-input" class="text-area" rows="3" placeholder="예: Spring Boot 기반 학내 서비스 개발 및 성능 개선 / 또는 학생부: 물리 세특 전자기 유도 탐구, 공학 동아리장 활동">' +
+            escapeHtml(p.background) +
+            "</textarea>" +
+            "    </div>" +
+            "    <div>" +
+            '      <div class="row-between" style="margin-bottom:4px;">' +
+            '        <label for="reviews-input" class="field-label" style="margin-bottom:0;">면접 후기·기출 붙여넣기 <span style="font-weight:400;color:var(--text-muted);">(선택)</span></label>' +
+            '        <span id="reviews-char-count" class="font-mono-tabular" style="font-size:12px;font-weight:600;color:var(--accent);">' +
+            (p.pastedReviews.trim() ? "최우선 근거 반영 (" + p.pastedReviews.trim().length + "자)" : "") +
+            "</span>" +
+            "      </div>" +
+            '      <p class="field-hint">블라인드, 잡플래닛, 입시 커뮤니티 등에서 복사한 후기·기출을 붙여넣으면 최우선 근거로 삼아 질문과 면접 분위기를 만듭니다.</p>' +
+            '      <textarea id="reviews-input" class="text-area" rows="4" placeholder="예: 1차 직무 면접에서 프로젝트 트러블슈팅 과정을 꼬리질문으로 확인함. 기출 질문: 장애 발생 시 원인 파악 순서는?">' +
+            escapeHtml(p.pastedReviews) +
+            "</textarea>" +
+            "    </div>" +
+            errorHtml +
+            cacheNoticeHtml +
+            '    <div class="row-between" style="padding-top:14px;border-top:1px solid #F1F5F9;">' +
+            '      <div class="row-wrap" style="font-size:12px;color:var(--text-muted);">' +
+            "        <span>빠른 예시:</span>" +
+            examplesHtml +
+            "      </div>" +
+            '      <button type="submit" class="btn btn-primary">' +
+            iconSvg("search", "icon-xs") +
+            '        <span id="input-submit-label">' +
+            escapeHtml(submitLabel) +
+            "</span>" +
+            iconSvg("arrowRight", "icon-xs") +
+            "      </button>" +
+            "    </div>" +
+            "  </form>" +
+            "</div>";
+
+          // Bind input handlers
+          var orgEl = document.getElementById("org-input");
+          var roleEl = document.getElementById("role-input");
+          var bgEl = document.getElementById("bg-input");
+          var revEl = document.getElementById("reviews-input");
+
+          orgEl.oninput = function (e) {
+            state.profile.organization = e.target.value;
+          };
+          roleEl.oninput = function (e) {
+            state.profile.role = e.target.value;
+          };
+          bgEl.oninput = function (e) {
+            state.profile.background = e.target.value;
+          };
+          revEl.oninput = function (e) {
+            state.profile.pastedReviews = e.target.value;
+            var cnt = document.getElementById("reviews-char-count");
+            if (cnt) {
+              var len = e.target.value.trim().length;
+              cnt.textContent = len > 0 ? "최우선 근거 반영 (" + len + "자)" : "";
+            }
+          };
+
+          var modeBtns = rootEl.querySelectorAll("[data-mode]");
+          for (var i = 0; i < modeBtns.length; i++) {
+            modeBtns[i].onclick = function () {
+              state.profile.interviewMode = this.getAttribute("data-mode");
+              renderInput();
+            };
+          }
+
+          var focusBtns = rootEl.querySelectorAll("[data-focused-type]");
+          for (var j = 0; j < focusBtns.length; j++) {
+            focusBtns[j].onclick = function () {
+              state.profile.focusedType = this.getAttribute("data-focused-type");
+              renderInput();
+            };
+          }
+
+          var lenBtns = rootEl.querySelectorAll("[data-length]");
+          for (var k = 0; k < lenBtns.length; k++) {
+            lenBtns[k].onclick = function () {
+              state.profile.interviewLength = this.getAttribute("data-length");
+              renderInput();
+            };
+          }
+
+          var exBtns = rootEl.querySelectorAll("[data-example-idx]");
+          for (var x = 0; x < exBtns.length; x++) {
+            exBtns[x].onclick = function () {
+              var ex = QUICK_EXAMPLES[Number(this.getAttribute("data-example-idx"))];
+              if (ex) {
+                state.profile = Object.assign({}, ex.profile);
+                state.inputError = null;
+                renderInput();
+              }
+            };
+          }
+
+          document.getElementById("profile-form").onsubmit = function (e) {
+            e.preventDefault();
+            var org = state.profile.organization.trim();
+            var role = state.profile.role.trim();
+            if (!org) {
+              state.inputError = "지원하는 회사 또는 대학교 이름을 입력해 주세요.";
+              renderInput();
+              return;
+            }
+            if (!role) {
+              state.inputError = "지원 직무 또는 학과를 입력해 주세요.";
+              renderInput();
+              return;
+            }
+            state.inputError = null;
+            openResearchScreen(false);
+          };
+        }
+
+        /* =========================================================
+         * 11. Screen 2: Research Summary Screen
+         * ========================================================= */
+        function openResearchScreen(forceRefresh) {
+          var p = state.profile;
+          var cached = forceRefresh
+            ? null
+            : getCachedResearch(p.organization, p.role, p.pastedReviews);
+
+          if (cached) {
+            state.research = Object.assign({}, cached.research, {
+              interviewMode: p.interviewMode,
+              focusedType: p.focusedType,
+            });
+            state.isFromCache = true;
+            state.cachedAt = cached.cachedAt;
+          } else {
+            if (forceRefresh) {
+              state.variationCount += 1;
+            }
+            var generated = generateResearchSummary(p, state.variationCount);
+            var saved = saveCachedResearch(
+              p.organization,
+              p.role,
+              generated,
+              p.pastedReviews
+            );
+            state.research = generated;
+            state.isFromCache = false;
+            state.cachedAt = saved.cachedAt;
+          }
+
+          state.selectedRound = "전체 종합";
+          state.activeMode = p.interviewMode;
+          state.activeFocusedType = p.focusedType;
+          state.activeLength = p.interviewLength || "medium";
+          state.step = "research";
+          render();
+        }
+
+        function renderResearch() {
+          var r = state.research;
+          if (!r) {
+            state.step = "input";
+            render();
+            return;
+          }
+
+          var modeLabel =
+            state.activeMode === "comprehensive"
+              ? "종합 면접 (실제처럼)"
+              : "집중 연습 · " + state.activeFocusedType;
+
+          var cachedTimeLabel = formatCachedDate(state.cachedAt);
+          var isWithoutSearch = Boolean(r.isWithoutSearch || r.dataStatus === "unsearched");
+
+          var bannerHtml = isWithoutSearch
+            ? '<div role="status" class="status-banner status-warn">' +
+              '  <div class="row-wrap" style="align-items:flex-start;flex:1;min-width:240px;">' +
+              '    <span style="color:var(--amber);margin-top:2px;">' +
+              iconSvg("alert", "icon-sm") +
+              "</span>" +
+              "    <div><strong>로컬 리서치 요약 · </strong>" +
+              escapeHtml(r.dataStatusMessage) +
+              (state.isFromCache && cachedTimeLabel
+                ? ' <span style="font-size:12px;">(저장된 요약 재사용 · ' +
+                  escapeHtml(cachedTimeLabel) +
+                  ")</span>"
+                : "") +
+              "    </div>" +
+              "  </div>" +
+              '  <button type="button" id="research-refresh-btn" class="btn btn-secondary btn-sm">' +
+              iconSvg("refresh", "icon-xs") +
+              "    겹치지 않는 새 질문 만들기" +
+              "  </button>" +
+              "</div>"
+            : '<div role="status" class="status-banner status-info">' +
+              '  <div class="row-wrap" style="align-items:flex-start;flex:1;min-width:240px;">' +
+              '    <span style="color:var(--teal);margin-top:2px;">' +
+              iconSvg(state.isFromCache ? "db" : "check", "icon-sm") +
+              "</span>" +
+              "    <div><strong>" +
+              (state.isFromCache
+                ? "저장된 리서치 요약 재사용 중" +
+                  (cachedTimeLabel ? " (" + escapeHtml(cachedTimeLabel) + " 저장)" : "")
+                : "후기 기반 리서치 요약 저장됨") +
+              " · </strong>" +
+              escapeHtml(r.dataStatusMessage) +
+              "    </div>" +
+              "  </div>" +
+              '  <button type="button" id="research-refresh-btn" class="btn btn-secondary btn-sm">' +
+              iconSvg("refresh", "icon-xs") +
+              "    새 조합으로 다시 정리" +
+              "  </button>" +
+              "</div>";
+
+          var contextHtml = "";
+          if (r.institutionContext) {
+            var ic = r.institutionContext;
+            contextHtml =
+              '<section class="surface-card stack-md">' +
+              '  <div class="row-between">' +
+              '    <div class="section-heading">' +
+              iconSvg("building", "icon-sm") +
+              "      <h2>" +
+              escapeHtml(r.organization) +
+              " · " +
+              escapeHtml(r.role) +
+              " 맥락 정리</h2>" +
+              "    </div>" +
+              '    <span style="font-size:12px;font-weight:500;color:var(--amber);">' +
+              escapeHtml(ic.modelKnowledgeNotice) +
+              "</span>" +
+              "  </div>" +
+              '  <div class="tint-box">' +
+              '    <div style="font-size:12px;font-weight:700;color:var(--accent);margin-bottom:8px;">기관 특성 3줄 정리</div>' +
+              '    <ol style="margin:0;padding:0;list-style:none;" class="stack-sm">' +
+              ic.threeLineSummary
+                .map(function (line, idx) {
+                  return (
+                    '<li style="display:flex;gap:10px;font-size:14px;color:var(--text-primary);">' +
+                    '<span class="font-mono-tabular" style="font-size:12px;font-weight:700;color:var(--accent);">0' +
+                    (idx + 1) +
+                    ".</span><span>" +
+                    escapeHtml(line) +
+                    "</span></li>"
+                  );
+                })
+                .join("") +
+              "    </ol>" +
+              "  </div>" +
+              '  <div class="grid-2">' +
+              '    <div class="inset-box"><div style="font-size:12px;font-weight:600;color:var(--text-muted);margin-bottom:4px;">사업 분야 · 학과 특성</div><p style="font-size:14px;">' +
+              escapeHtml(ic.businessDomain) +
+              "</p></div>" +
+              '    <div class="inset-box"><div style="font-size:12px;font-weight:600;color:var(--text-muted);margin-bottom:4px;">핵심가치 · 인재상</div><p style="font-size:14px;">' +
+              escapeHtml(ic.coreValues) +
+              "</p></div>" +
+              '    <div class="inset-box"><div style="font-size:12px;font-weight:600;color:var(--text-muted);margin-bottom:4px;">주력 제품·서비스 · 교육 분야</div><p style="font-size:14px;">' +
+              escapeHtml(ic.flagshipProductsOrCurriculum) +
+              "</p></div>" +
+              '    <div class="inset-box"><div style="font-size:12px;font-weight:600;color:var(--text-muted);margin-bottom:4px;">업계 · 분야 주요 이슈</div><p style="font-size:14px;">' +
+              escapeHtml(ic.industryIssues) +
+              "</p></div>" +
+              "  </div>" +
+              "</section>";
+          }
+
+          var questionsListHtml = r.questionsCard.items
+            .map(function (item) {
+              var basis = item.questionBasis || (item.isRealQuestion ? "후기 기반" : "모델 지식 기반");
+              var basisColor = basis === "후기 기반" ? "var(--teal)" : "var(--accent)";
+              return (
+                "<li>" +
+                '  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">' +
+                '    <p style="font-size:14px;font-weight:600;color:var(--text-primary);">&ldquo;' +
+                escapeHtml(item.question) +
+                "&rdquo;</p>" +
+                '    <span style="font-size:12px;font-weight:600;white-space:nowrap;flex-shrink:0;color:' +
+                basisColor +
+                ';">' +
+                escapeHtml(basis) +
+                "</span>" +
+                "  </div>" +
+                '  <div style="margin-top:4px;font-size:12px;color:var(--text-muted);">' +
+                (item.questionTag ? escapeHtml(item.questionTag) : "") +
+                (item.yearInfo ? " · " + escapeHtml(item.yearInfo) : "") +
+                "  </div>" +
+                (item.note
+                  ? '<p style="margin-top:4px;font-size:12px;color:var(--text-muted);">' +
+                    escapeHtml(item.note) +
+                    "</p>"
+                  : "") +
+                "</li>"
+              );
+            })
+            .join("");
+
+          var roundsHtml = "";
+          if (r.interviewRounds && r.interviewRounds.length > 0) {
+            roundsHtml =
+              '<div>' +
+              '  <div style="font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:8px;">확인된 면접 단계 — 단계별 연습 선택</div>' +
+              '  <div class="grid-3">' +
+              '    <button type="button" class="choice-card" data-round="전체 종합" aria-pressed="' +
+              String(state.selectedRound === "전체 종합") +
+              '">' +
+              '      <div class="choice-card-title">전체 종합</div>' +
+              '      <div class="choice-card-desc">전형 전반을 아우르는 실전 연습</div>' +
+              "    </button>" +
+              r.interviewRounds
+                .map(function (rd) {
+                  return (
+                    '<button type="button" class="choice-card" data-round="' +
+                    escapeHtml(rd.name) +
+                    '" aria-pressed="' +
+                    String(state.selectedRound === rd.name) +
+                    '">' +
+                    '  <div class="choice-card-title">' +
+                    escapeHtml(rd.name) +
+                    "</div>" +
+                    '  <div class="choice-card-desc">' +
+                    escapeHtml(rd.description) +
+                    "</div>" +
+                    "</button>"
+                  );
+                })
+                .join("") +
+              "  </div>" +
+              "</div>";
+          }
+
+          var lenSelectHtml = LENGTH_OPTIONS.map(function (opt) {
+            var active = state.activeLength === opt.key;
+            return (
+              '<button type="button" class="choice-card" data-res-length="' +
+              opt.key +
+              '" aria-pressed="' +
+              String(active) +
+              '">' +
+              '  <div class="choice-card-title">' +
+              escapeHtml(opt.label) +
+              "</div>" +
+              '  <div class="choice-card-desc font-mono-tabular">' +
+              escapeHtml(opt.summary) +
+              "</div>" +
+              "</button>"
+            );
+          }).join("");
+
+          var focusedMiniHtml =
+            state.activeMode === "focused"
+              ? '<div class="row-wrap" style="padding-left:4px;">' +
+                FOCUSED_TYPES.map(function (ft) {
+                  var sel = state.activeFocusedType === ft.type;
+                  return (
+                    '<button type="button" class="btn btn-sm ' +
+                    (sel ? "btn-primary" : "btn-subtle") +
+                    '" data-res-focused="' +
+                    escapeHtml(ft.type) +
+                    '">' +
+                    escapeHtml(ft.type) +
+                    "</button>"
+                  );
+                }).join("") +
+                "</div>"
+              : "";
+
+          rootEl.innerHTML =
+            '<div class="container-wide stack-lg">' +
+            '  <div class="row-between" style="align-items:flex-end;">' +
+            "    <div>" +
+            '      <div style="font-size:13px;color:var(--text-muted);font-weight:500;">' +
+            escapeHtml(r.organization) +
+            " · " +
+            escapeHtml(r.role) +
+            " · " +
+            escapeHtml(modeLabel) +
+            "</div>" +
+            '      <h1 class="page-title" style="margin-top:4px;">리서치 요약</h1>' +
+            "    </div>" +
+            '    <div class="row-wrap">' +
+            '      <button type="button" id="res-edit-btn" class="btn btn-secondary">' +
+            iconSvg("arrowLeft", "icon-xs") +
+            "        조건 수정" +
+            "      </button>" +
+            '      <button type="button" id="res-start-top-btn" class="btn btn-primary">' +
+            "        모의면접 시작하기" +
+            iconSvg("arrowRight", "icon-xs") +
+            "      </button>" +
+            "    </div>" +
+            "  </div>" +
+            bannerHtml +
+            contextHtml +
+            '  <div class="grid-2" style="align-items:stretch;">' +
+            '    <section class="surface-card stack-md">' +
+            '      <div class="section-heading">' +
+            iconSvg("list", "icon-sm") +
+            "        <h2>면접 방식과 전형 단계</h2>" +
+            "      </div>" +
+            '      <p style="font-size:14px;color:var(--text-secondary);">' +
+            escapeHtml(r.processCard.summary) +
+            "</p>" +
+            '      <ol style="margin:0;padding:0;list-style:none;" class="stack-sm">' +
+            r.processCard.stages
+              .map(function (st, idx) {
+                return (
+                  '<li style="display:flex;gap:8px;font-size:14px;color:var(--text-secondary);">' +
+                  '<span class="font-mono-tabular" style="font-size:12px;font-weight:600;color:var(--text-muted);">0' +
+                  (idx + 1) +
+                  ".</span><span>" +
+                  escapeHtml(st) +
+                  "</span></li>"
+                );
+              })
+              .join("") +
+            "      </ol>" +
+            "    </section>" +
+            '    <section class="surface-card stack-md">' +
+            '      <div class="row-between">' +
+            '        <div class="section-heading">' +
+            iconSvg("msg", "icon-sm") +
+            "          <h2>면접 분위기</h2>" +
+            "        </div>" +
+            '        <span style="font-size:12px;font-weight:600;color:var(--text-secondary);">강도: ' +
+            escapeHtml(r.atmosphereCard.pressureLevel) +
+            "</span>" +
+            "      </div>" +
+            '      <p style="font-size:14px;color:var(--text-secondary);">' +
+            escapeHtml(r.atmosphereCard.summary) +
+            "</p>" +
+            '      <div class="inset-box">' +
+            '        <div style="font-size:12px;font-weight:600;color:var(--text-muted);margin-bottom:4px;">예상 면접관 페르소나</div>' +
+            '        <div style="font-size:14px;color:var(--text-primary);">' +
+            escapeHtml(r.atmosphereCard.interviewerTone) +
+            "</div>" +
+            "      </div>" +
+            "    </section>" +
+            '    <section class="surface-card stack-md">' +
+            '      <div class="section-heading">' +
+            iconSvg("help", "icon-sm") +
+            "        <h2>자주 나오는 질문</h2>" +
+            "      </div>" +
+            '      <ul class="question-list">' +
+            questionsListHtml +
+            "      </ul>" +
+            "    </section>" +
+            '    <section class="surface-card stack-md">' +
+            '      <div class="section-heading">' +
+            iconSvg("bulb", "icon-sm") +
+            "        <h2>합격자 후기에서 반복되는 팁</h2>" +
+            "      </div>" +
+            '      <ol style="margin:0;padding:0;list-style:none;" class="stack-sm">' +
+            r.tipsCard.tips
+              .map(function (tip, idx) {
+                return (
+                  '<li style="display:flex;gap:8px;font-size:14px;color:var(--text-secondary);">' +
+                  '<span class="font-mono-tabular" style="font-size:12px;font-weight:600;color:var(--accent);">0' +
+                  (idx + 1) +
+                  ".</span><span>" +
+                  escapeHtml(tip) +
+                  "</span></li>"
+                );
+              })
+              .join("") +
+            "      </ol>" +
+            "    </section>" +
+            "  </div>" +
+            '  <section class="surface-card stack-md">' +
+            "    <div>" +
+            '      <h2 style="font-size:16px;font-weight:700;">모의면접 진행 방식 선택</h2>' +
+            '      <p style="margin-top:4px;font-size:13px;color:var(--text-muted);">면접 길이와 진행 방식을 조정한 뒤 실전 모의면접을 바로 시작할 수 있습니다.</p>' +
+            "    </div>" +
+            roundsHtml +
+            '    <div style="padding-top:12px;border-top:1px solid #F1F5F9;">' +
+            '      <div style="font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:8px;">면접 길이 선택</div>' +
+            '      <div class="grid-3">' +
+            lenSelectHtml +
+            "      </div>" +
+            "    </div>" +
+            '    <div class="row-between" style="padding-top:12px;border-top:1px solid #F1F5F9;">' +
+            '      <div class="stack-sm">' +
+            '        <div class="row-wrap">' +
+            '          <button type="button" class="btn btn-sm ' +
+            (state.activeMode === "comprehensive" ? "btn-primary" : "btn-secondary") +
+            '" data-res-mode="comprehensive">종합 면접 (실제처럼)</button>' +
+            '          <button type="button" class="btn btn-sm ' +
+            (state.activeMode === "focused" ? "btn-primary" : "btn-secondary") +
+            '" data-res-mode="focused">집중 연습</button>' +
+            focusedMiniHtml +
+            "        </div>" +
+            '        <p style="font-size:12px;color:var(--text-muted);">자기소개 → 지원 동기 → 경험·역량 → 직무·전공 → 상황 질문 → 마지막 한마디 순으로 총 ' +
+            getLengthCount(state.activeLength) +
+            "문항(꼬리질문 0~2회)이 진행됩니다.</p>" +
+            "      </div>" +
+            '      <button type="button" id="res-start-bottom-btn" class="btn btn-primary">' +
+            "        모의면접 시작하기" +
+            iconSvg("arrowRight", "icon-xs") +
+            "      </button>" +
+            "    </div>" +
+            "  </section>" +
+            "</div>";
+
+          document.getElementById("res-edit-btn").onclick = function () {
+            state.step = "input";
+            render();
+          };
+          document.getElementById("research-refresh-btn").onclick = function () {
+            openResearchScreen(true);
+          };
+          document.getElementById("res-start-top-btn").onclick = startMockInterview;
+          document.getElementById("res-start-bottom-btn").onclick = startMockInterview;
+
+          var rdBtns = rootEl.querySelectorAll("[data-round]");
+          for (var i = 0; i < rdBtns.length; i++) {
+            rdBtns[i].onclick = function () {
+              state.selectedRound = this.getAttribute("data-round");
+              renderResearch();
+            };
+          }
+          var rlBtns = rootEl.querySelectorAll("[data-res-length]");
+          for (var j = 0; j < rlBtns.length; j++) {
+            rlBtns[j].onclick = function () {
+              state.activeLength = this.getAttribute("data-res-length");
+              renderResearch();
+            };
+          }
+          var rmBtns = rootEl.querySelectorAll("[data-res-mode]");
+          for (var k = 0; k < rmBtns.length; k++) {
+            rmBtns[k].onclick = function () {
+              state.activeMode = this.getAttribute("data-res-mode");
+              renderResearch();
+            };
+          }
+          var rfBtns = rootEl.querySelectorAll("[data-res-focused]");
+          for (var m = 0; m < rfBtns.length; m++) {
+            rfBtns[m].onclick = function () {
+              state.activeFocusedType = this.getAttribute("data-res-focused");
+              renderResearch();
+            };
+          }
+        }
+
+        /* =========================================================
+         * 12. Screen 3: Mock Interview Screen
+         * ========================================================= */
+        function prepareNextMain(nextQIndex) {
+          var total = getLengthCount(state.activeLength);
+          if (nextQIndex > total || !state.plannedQuestions.length) {
+            state.preloadedNextMain = null;
+            return;
+          }
+          var target =
+            state.plannedQuestions[nextQIndex - 1] ||
+            state.plannedQuestions[state.plannedQuestions.length - 1];
+          state.preloadedNextMain = {
+            questionIndex: nextQIndex,
+            stageName: target.stageName,
+            baseQuestionText: target.question,
+            questionBasis: target.questionBasis || "모델 지식 기반",
+          };
+        }
+
+        function startMockInterview() {
+          stopSpeaking();
+          stopListening();
+          if (state.streamTimerId) {
+            window.clearTimeout(state.streamTimerId);
+            state.streamTimerId = null;
+          }
+
+          var total = getLengthCount(state.activeLength);
+          var plan = buildPlannedQuestions(
+            state.profile,
+            state.research,
+            state.activeMode,
+            state.activeFocusedType,
+            state.selectedRound,
+            total
+          );
+
+          state.plannedQuestions = plan;
+          state.currentQuestionIndex = 1;
+          state.currentTurnType = "main";
+          state.followUpCount = 0;
+          state.offTopicCount = 0;
+          state.isComplete = false;
+          state.isWaiting = false;
+          state.streamingBubble = null;
+          state.elapsedSec = 0;
+          state.inputDraft = "";
+          state.turnMetrics = null;
+          state.qaPairs = [];
+          state.report = null;
+          resetTurnSpeechTracking();
+
+          var first = plan[0];
+          state.messages = [
+            {
+              id: "msg-init-1",
+              sender: "interviewer",
+              text: first.question,
+              questionIndex: 1,
+              turnType: "main",
+              questionCategory: first.stageName,
+              questionBasis: first.questionBasis,
+              timestamp: formatTimeNow(),
+            },
+          ];
+
+          prepareNextMain(2);
+          state.step = "interview";
+          render();
+          startTimer();
+          speakText(first.question);
+        }
+
+        function advanceToPreloadedMain(nextQIndex, withBriefReaction, customPrefix) {
+          var pre =
+            state.preloadedNextMain && state.preloadedNextMain.questionIndex === nextQIndex
+              ? state.preloadedNextMain
+              : null;
+          if (!pre) {
+            prepareNextMain(nextQIndex);
+            pre = state.preloadedNextMain;
+          }
+
+          var total = getLengthCount(state.activeLength);
+          var stageName = pre ? pre.stageName : getStageInfo(nextQIndex, total).stageName;
+          var baseText = pre
+            ? pre.baseQuestionText
+            : nextQIndex >= total
+            ? "마지막으로 꼭 하고 싶은 말씀이나 궁금한 점이 있으신가요?"
+            : state.profile.role + "와 관련된 본인의 경험을 말씀해 주시겠어요?";
+          var reactions = ["좋습니다.", "잘 들었습니다.", "네, 알겠습니다."];
+          var alreadyGreet = /^(좋습니다|네,|알겠습니다|잘 들었습니다)/.test(baseText);
+
+          var fullQ = customPrefix
+            ? customPrefix + " " + baseText
+            : withBriefReaction && nextQIndex > 1 && !alreadyGreet
+            ? reactions[nextQIndex % reactions.length] + " " + baseText
+            : baseText;
+
+          var msg = {
+            id: "msg-" + Date.now() + "-main",
+            sender: "interviewer",
+            text: fullQ,
+            questionIndex: nextQIndex,
+            turnType: "main",
+            questionCategory: stageName,
+            questionBasis: pre ? pre.questionBasis : "모델 지식 기반",
+            timestamp: formatTimeNow(),
+          };
+
+          state.messages.push(msg);
+          state.currentQuestionIndex = nextQIndex;
+          state.currentTurnType = "main";
+          state.followUpCount = 0;
+          state.offTopicCount = 0;
+          state.turnStartMs = Date.now();
+
+          prepareNextMain(nextQIndex + 1);
+          renderInterview();
+          speakText(msg.text);
+        }
+
+        function streamInterviewerMessage(opts) {
+          var fullMessage = opts.text;
+          var qIndex = opts.questionIndex;
+          var turnType = opts.turnType;
+          var categoryLabel = opts.categoryLabel;
+          var nextFollowUp = opts.nextFollowUp;
+          var relevance = opts.relevance;
+          var sendPerf = opts.sendPerf;
+          var tGenStart = performance.now();
+
+          var chars = Array.from(fullMessage);
+          var cursor = 0;
+          var currentText = "";
+          var ttsPending = "";
+          var firstShownRecorded = false;
+
+          state.streamingBubble = {
+            text: "",
+            questionIndex: qIndex,
+            turnType: turnType,
+            questionCategory: categoryLabel,
+          };
+
+          function flushSentences(forceAll) {
+            if (!ttsPending.trim()) return;
+            if (forceAll) {
+              enqueueSpeechChunk(ttsPending.trim(), false);
+              ttsPending = "";
+              return;
+            }
+            var m = ttsPending.match(/^([\s\S]*?[.?!\n])(\s*[\s\S]*)$/);
+            while (m) {
+              var s = m[1].trim();
+              ttsPending = m[2];
+              if (s) enqueueSpeechChunk(s, false);
+              m = ttsPending.match(/^([\s\S]*?[.?!\n])(\s*[\s\S]*)$/);
+            }
+          }
+
+          function stepStream() {
+            var stepSize = 3;
+            var piece = chars.slice(cursor, cursor + stepSize).join("");
+            cursor += stepSize;
+
+            if (!firstShownRecorded) {
+              firstShownRecorded = true;
+              state.turnMetrics.waitToFirstResponseMs = Math.round(performance.now() - sendPerf);
+            }
+
+            currentText += piece;
+            ttsPending += piece;
+            state.streamingBubble.text = currentText;
+
+            // Update streaming DOM cleanly without stealing focus
+            var streamTextEl = document.getElementById("streaming-bubble-text");
+            var thinkingEl = document.getElementById("thinking-indicator");
+            if (streamTextEl) {
+              streamTextEl.innerHTML =
+                escapeHtml(currentText) + '<span class="stream-caret" aria-hidden="true"></span>';
+              var wrapEl = document.getElementById("streaming-bubble-wrap");
+              if (wrapEl) wrapEl.hidden = false;
+              if (thinkingEl) thinkingEl.hidden = true;
+            } else {
+              renderInterview();
+            }
+
+            flushSentences(false);
+
+            if (cursor < chars.length) {
+              state.streamTimerId = window.setTimeout(stepStream, 16);
+              return;
+            }
+
+            // Stream finished
+            flushSentences(true);
+            state.streamTimerId = null;
+            state.isWaiting = false;
+            state.streamingBubble = null;
+
+            var genMs = Math.round(performance.now() - tGenStart);
+            var totalMs = Math.round(performance.now() - sendPerf);
+            state.turnMetrics.generationMs = genMs;
+            state.turnMetrics.totalUntilShownMs = totalMs;
+            state.turnMetrics.status = "done";
+
+            state.messages.push({
+              id: "msg-" + Date.now() + "-iv",
+              sender: "interviewer",
+              text: currentText.trim(),
+              questionIndex: qIndex,
+              turnType: turnType,
+              followUpNumber: turnType === "followup" ? nextFollowUp : undefined,
+              questionCategory: categoryLabel,
+              timestamp: formatTimeNow(),
+            });
+
+            if (turnType === "reask") {
+              state.currentTurnType = "reask";
+              state.offTopicCount += 1;
+            } else if (turnType === "closing") {
+              state.currentTurnType = "closing";
+              state.isComplete = true;
+              stopTimer();
+            } else {
+              state.currentTurnType = "followup";
+              state.followUpCount = nextFollowUp;
+              if (relevance === "정상") state.offTopicCount = 0;
+            }
+
+            state.turnStartMs = Date.now();
+            renderInterview();
+            renderMetricsHud();
+          }
+
+          state.streamTimerId = window.setTimeout(stepStream, 120);
+        }
+
+        function handleSendAnswer() {
+          if (state.isListening) stopListening();
+          stopSpeaking();
+
+          var inputEl = document.getElementById("chat-input-box");
+          var rawVal = inputEl ? inputEl.value : state.inputDraft;
+          var trimmed = String(rawVal || "").trim();
+          if (!trimmed || state.isWaiting || state.isComplete) return;
+
+          var sendPerf = performance.now();
+          var speechMetrics = calcSpeechMetrics(
+            trimmed,
+            state.rawSpokenText,
+            state.accumulatedMicMs,
+            Date.now() - state.turnStartMs
+          );
+
+          state.messages.push({
+            id: "msg-" + Date.now() + "-cand",
+            sender: "candidate",
+            text: trimmed,
+            questionIndex: state.currentQuestionIndex,
+            turnType: state.currentTurnType,
+            followUpNumber: state.currentTurnType === "followup" ? state.followUpCount : undefined,
+            timestamp: formatTimeNow(),
+            speechMetrics: speechMetrics,
+          });
+
+          state.inputDraft = "";
+          resetTurnSpeechTracking();
+          state.isWaiting = true;
+          state.streamingBubble = null;
+
+          var qIdx = state.currentQuestionIndex;
+          var total = getLengthCount(state.activeLength);
+
+          state.pendingTtsMeasure = { sendPerf: sendPerf, recorded: false };
+          state.turnMetrics = {
+            turnLabel: "질문 " + qIdx + " 답변 후",
+            status: "measuring",
+            actionLabel: qIdx >= total ? "마무리" : "판단 중...",
+            relevanceMs: qIdx >= total ? 0 : null,
+            waitToFirstResponseMs: null,
+            generationMs: null,
+            totalUntilShownMs: null,
+            ttsStartMs: null,
+            ttsStatus: !state.ttsSupported
+              ? "unsupported"
+              : !state.voiceEnabled
+              ? "disabled"
+              : "pending",
+          };
+
+          renderInterview();
+          renderMetricsHud();
+
+          // Final question closing flow
+          if (qIdx >= total) {
+            var closingDecision = evaluateClosingTurn(trimmed);
+            if (!closingDecision.needsStream) {
+              var instantMs = Math.round(performance.now() - sendPerf);
+              state.turnMetrics.actionLabel = "즉시 마무리";
+              state.turnMetrics.relevanceMs = 0;
+              state.turnMetrics.waitToFirstResponseMs = instantMs;
+              state.turnMetrics.generationMs = 0;
+              state.turnMetrics.totalUntilShownMs = instantMs;
+              state.turnMetrics.status = "done";
+
+              state.isWaiting = false;
+              state.currentTurnType = "closing";
+              state.isComplete = true;
+              stopTimer();
+              state.messages.push({
+                id: "msg-" + Date.now() + "-close",
+                sender: "interviewer",
+                text: closingDecision.message,
+                questionIndex: qIdx,
+                turnType: "closing",
+                questionCategory: "마무리",
+                timestamp: formatTimeNow(),
+              });
+              renderInterview();
+              renderMetricsHud();
+              speakText(closingDecision.message);
+              return;
+            }
+
+            streamInterviewerMessage({
+              text: closingDecision.message,
+              questionIndex: qIdx,
+              turnType: "closing",
+              categoryLabel: "마무리",
+              nextFollowUp: 0,
+              relevance: "정상",
+              sendPerf: sendPerf,
+            });
+            return;
+          }
+
+          // Standard answer judgment (short non-blocking tick so "면접관이 생각 중..." renders immediately)
+          var mainQ = "";
+          var lastIvQ = "";
+          for (var i = 0; i < state.messages.length; i++) {
+            var msg = state.messages[i];
+            if (msg.sender === "interviewer") {
+              lastIvQ = msg.text;
+              if (msg.questionIndex === qIdx && msg.turnType === "main") {
+                mainQ = msg.text;
+              }
+            }
+          }
+
+          window.setTimeout(function () {
+            var decision = evaluateCandidateTurn({
+              answer: trimmed,
+              mainQuestion: mainQ || lastIvQ,
+              lastQuestion: lastIvQ,
+              followUpCount: state.followUpCount,
+              offTopicCount: state.offTopicCount,
+              interviewMode: state.activeMode,
+              focusedType: state.activeFocusedType,
+            });
+
+            var relMs = Math.round(performance.now() - sendPerf);
+            state.turnMetrics.relevanceMs = relMs;
+            state.turnMetrics.actionLabel =
+              decision.action === "reask"
+                ? "핵심 재질문"
+                : decision.action === "skip_next_question"
+                ? "무관 2회 → 다음 질문"
+                : decision.action === "next_question"
+                ? "다음 본 질문"
+                : "꼬리질문";
+
+            if (decision.action === "next_question") {
+              state.turnMetrics.waitToFirstResponseMs = relMs;
+              state.turnMetrics.generationMs = 0;
+              state.turnMetrics.totalUntilShownMs = relMs;
+              state.turnMetrics.status = "done";
+              state.isWaiting = false;
+              renderMetricsHud();
+              advanceToPreloadedMain(qIdx + 1, true);
+              return;
+            }
+
+            if (decision.action === "skip_next_question") {
+              state.turnMetrics.waitToFirstResponseMs = relMs;
+              state.turnMetrics.generationMs = 0;
+              state.turnMetrics.totalUntilShownMs = relMs;
+              state.turnMetrics.status = "done";
+              state.isWaiting = false;
+              renderMetricsHud();
+              advanceToPreloadedMain(qIdx + 1, false, "다음 질문으로 넘어가겠습니다.");
+              return;
+            }
+
+            renderMetricsHud();
+            var nextFu = decision.action === "followup" ? state.followUpCount + 1 : state.followUpCount;
+            streamInterviewerMessage({
+              text: decision.message,
+              questionIndex: qIdx,
+              turnType: decision.action === "reask" ? "reask" : "followup",
+              categoryLabel: decision.action === "reask" ? "핵심 재질문" : "꼬리질문 " + nextFu + "/2",
+              nextFollowUp: nextFu,
+              relevance: decision.relevance,
+              sendPerf: sendPerf,
+            });
+          }, 90);
+        }
+
+        function finishAndShowResult() {
+          stopSpeaking();
+          stopListening();
+          stopTimer();
+          if (state.streamTimerId) {
+            window.clearTimeout(state.streamTimerId);
+            state.streamTimerId = null;
+          }
+          var pairs = buildQaPairs(state.messages);
+          state.qaPairs = pairs;
+          state.report = generateFeedbackReport(state.profile, pairs);
+          state.step = "result";
+          render();
+        }
+
+        function renderInterview() {
+          var total = getLengthCount(state.activeLength);
+          var progressPct = Math.min(100, Math.round((state.currentQuestionIndex / total) * 100));
+          var stageName = getStageInfo(state.currentQuestionIndex, total).stageName;
+          var completedCount = buildQaPairs(state.messages).length;
+          var canFinishNow = completedCount >= 1 && !state.isWaiting;
+          var modeLabel =
+            state.activeMode === "comprehensive"
+              ? "종합 면접(실제처럼)"
+              : "집중 연습(" + state.activeFocusedType + ")";
+
+          var messagesHtml = state.messages
+            .map(function (msg, idx) {
+              var isIv = msg.sender === "interviewer";
+              var turnLabel = "";
+              if (isIv && msg.turnType !== "closing") {
+                turnLabel =
+                  msg.turnType === "reask"
+                    ? "질문 " + msg.questionIndex + " (핵심 재질문)"
+                    : msg.turnType === "followup"
+                    ? "질문 " + msg.questionIndex + " 꼬리질문"
+                    : "질문 " +
+                      msg.questionIndex +
+                      (msg.questionCategory ? " (" + msg.questionCategory + ")" : "");
+              }
+
+              var basisSpan =
+                isIv && msg.turnType === "main" && msg.questionBasis
+                  ? '<span aria-hidden="true">·</span><span style="font-weight:600;color:' +
+                    (msg.questionBasis === "후기 기반" ? "var(--teal)" : "var(--accent)") +
+                    ';">' +
+                    escapeHtml(msg.questionBasis) +
+                    "</span>"
+                  : "";
+
+              var replayBtn =
+                isIv && state.ttsSupported
+                  ? '<span aria-hidden="true">·</span><button type="button" class="link-btn" data-speak-idx="' +
+                    idx +
+                    '">' +
+                    (state.isSpeaking ? "읽기 중지" : "다시 듣기") +
+                    "</button>"
+                  : "";
+
+              var speechHtml =
+                !isIv && msg.speechMetrics
+                  ? '<div class="msg-speech-meta font-mono-tabular">' +
+                    (msg.speechMetrics.usedVoice ? "음성 답변" : "텍스트 입력") +
+                    " · " +
+                    msg.speechMetrics.durationSec +
+                    "초 · " +
+                    msg.speechMetrics.charCount +
+                    "자 (" +
+                    msg.speechMetrics.charsPerMin +
+                    "자/분)" +
+                    (msg.speechMetrics.totalFillers > 0
+                      ? " · 군더더기 " + msg.speechMetrics.totalFillers + "회"
+                      : "") +
+                    "</div>"
+                  : "";
+
+              return (
+                '<div class="msg-row ' +
+                (isIv ? "interviewer" : "candidate") +
+                '">' +
+                '  <div class="msg-meta">' +
+                '    <strong style="color:var(--text-primary);">' +
+                (isIv ? "면접관" : "내 답변") +
+                "</strong>" +
+                (turnLabel ? '<span aria-hidden="true">·</span><span>' + escapeHtml(turnLabel) + "</span>" : "") +
+                basisSpan +
+                '    <span aria-hidden="true">·</span><span class="tabular-nums">' +
+                escapeHtml(msg.timestamp) +
+                "</span>" +
+                replayBtn +
+                "  </div>" +
+                '  <div class="msg-bubble ' +
+                (isIv ? "interviewer" : "candidate") +
+                '">' +
+                escapeHtml(msg.text) +
+                "</div>" +
+                speechHtml +
+                "</div>"
+              );
+            })
+            .join("");
+
+          var streamLabel =
+            state.streamingBubble && state.streamingBubble.turnType === "reask"
+              ? "질문 " + state.streamingBubble.questionIndex + " (핵심 재질문)"
+              : state.streamingBubble
+              ? "질문 " + state.streamingBubble.questionIndex + " 꼬리질문"
+              : "";
+
+          var streamingHtml =
+            '<div id="streaming-bubble-wrap" class="msg-row interviewer" ' +
+            (state.streamingBubble && state.streamingBubble.text ? "" : "hidden") +
+            ">" +
+            '  <div class="msg-meta"><strong style="color:var(--text-primary);">면접관</strong>' +
+            (streamLabel ? '<span aria-hidden="true">·</span><span>' + escapeHtml(streamLabel) + "</span>" : "") +
+            "  </div>" +
+            '  <div id="streaming-bubble-text" class="msg-bubble interviewer">' +
+            (state.streamingBubble && state.streamingBubble.text
+              ? escapeHtml(state.streamingBubble.text) +
+                '<span class="stream-caret" aria-hidden="true"></span>'
+              : "") +
+            "</div>" +
+            "</div>";
+
+          var thinkingHtml =
+            '<div id="thinking-indicator" class="msg-row interviewer" ' +
+            (state.isWaiting && (!state.streamingBubble || !state.streamingBubble.text) ? "" : "hidden") +
+            ">" +
+            '  <div class="msg-meta"><strong style="color:var(--text-primary);">면접관</strong></div>' +
+            '  <div class="msg-bubble interviewer" style="display:inline-flex;align-items:center;gap:10px;color:var(--text-secondary);">' +
+            '    <span class="thinking-dots" aria-hidden="true"><span class="thinking-dot"></span><span class="thinking-dot"></span><span class="thinking-dot"></span></span>' +
+            "    <span>면접관이 생각 중...</span>" +
+            "  </div>" +
+            "</div>";
+
+          var footerHtml = state.isComplete
+            ? '<div class="chat-footer row-between">' +
+              '  <div class="row-wrap" style="font-size:14px;color:var(--text-secondary);">' +
+              '    <span style="color:var(--teal);display:inline-flex;">' +
+              iconSvg("check", "icon-sm") +
+              "</span>" +
+              "    <span>모의면접이 모두 끝났습니다. 답변별 상세 피드백과 말하기 분석을 확인해 보세요.</span>" +
+              "  </div>" +
+              '  <button type="button" id="iv-view-result-btn" class="btn btn-primary">결과 및 피드백 보기' +
+              iconSvg("arrowRight", "icon-xs") +
+              "</button>" +
+              "</div>"
+            : '<div class="chat-footer stack-sm">' +
+              (!state.sttSupported
+                ? '<div class="inset-box row-wrap" style="padding:8px 12px;font-size:12px;color:var(--text-muted);">' +
+                  iconSvg("micOff", "icon-xs") +
+                  "<span>이 브라우저에서는 음성 인식이 지원되지 않아 텍스트 입력으로 진행합니다.</span></div>"
+                : "") +
+              (state.micError
+                ? '<div role="status" class="status-banner status-warn" style="padding:8px 12px;font-size:12px;">' +
+                  escapeHtml(state.micError) +
+                  "</div>"
+                : "") +
+              (state.isListening
+                ? '<div class="tint-box row-between" style="padding:10px 14px;">' +
+                  '  <div class="row-wrap" style="gap:12px;min-width:0;flex:1;">' +
+                  '    <div class="voice-wave" aria-hidden="true"><span class="voice-bar"></span><span class="voice-bar"></span><span class="voice-bar"></span><span class="voice-bar"></span><span class="voice-bar"></span></div>' +
+                  '    <div style="min-width:0;font-size:12px;"><strong style="color:var(--accent);margin-right:6px;">듣는 중...</strong><span id="listening-interim-text" style="color:var(--text-secondary);">' +
+                  escapeHtml(state.interimText || "말씀하시면 아래 입력창에 글자로 변환됩니다.") +
+                  "</span></div>" +
+                  "  </div>" +
+                  '  <button type="button" id="iv-stop-mic-btn" class="btn btn-secondary btn-sm">말하기 멈춤</button>' +
+                  "</div>"
+                : "") +
+              '  <div style="display:flex;align-items:flex-end;gap:8px;">' +
+              (state.sttSupported
+                ? '<button type="button" id="iv-mic-btn" class="btn ' +
+                  (state.isListening ? "btn-danger" : "btn-secondary") +
+                  '" ' +
+                  (state.isWaiting ? "disabled" : "") +
+                  ' aria-label="' +
+                  (state.isListening ? "음성 입력 중지" : "마이크로 답변하기") +
+                  '" aria-pressed="' +
+                  String(state.isListening) +
+                  '">' +
+                  iconSvg(state.isListening ? "square" : "mic", "icon-xs") +
+                  "<span>" +
+                  (state.isListening ? "중지" : "말하기") +
+                  "</span></button>"
+                : "") +
+              '    <textarea id="chat-input-box" class="text-area" rows="2" style="min-height:46px;flex:1;" ' +
+              (state.isWaiting ? "disabled" : "") +
+              ' placeholder="' +
+              (state.sttSupported
+                ? "마이크 버튼을 눌러 말하거나 직접 입력하세요. 보내기 전에 수정할 수 있어요."
+                : "답변을 입력하세요. (Enter 전송, Shift+Enter 줄바꿈)") +
+              '">' +
+              escapeHtml(state.inputDraft) +
+              "</textarea>" +
+              '    <button type="button" id="iv-send-btn" class="btn btn-primary" ' +
+              (state.isWaiting || !state.inputDraft.trim() ? "disabled" : "") +
+              ' aria-label="답변 전송">' +
+              iconSvg("send", "icon-xs") +
+              "<span>전송</span></button>" +
+              "  </div>" +
+              "</div>";
+
+          rootEl.innerHTML =
+            '<div class="container-narrow" style="padding-top:24px;padding-bottom:24px;">' +
+            '  <div class="chat-shell">' +
+            '    <div class="chat-header stack-sm">' +
+            '      <div class="row-between">' +
+            "        <div>" +
+            '          <div style="font-size:14px;font-weight:700;">' +
+            escapeHtml(state.profile.organization) +
+            " 면접관</div>" +
+            '          <div style="font-size:12px;color:var(--text-muted);">' +
+            escapeHtml(state.profile.role) +
+            " · " +
+            escapeHtml(modeLabel) +
+            (state.selectedRound !== "전체 종합" ? " · " + escapeHtml(state.selectedRound) : "") +
+            "</div>" +
+            "        </div>" +
+            '        <div class="row-wrap">' +
+            (state.ttsSupported
+              ? '<button type="button" id="iv-voice-toggle" class="btn btn-secondary btn-sm">' +
+                iconSvg(state.voiceEnabled ? "volume" : "volumeOff", "icon-xs") +
+                (state.voiceEnabled ? "음성 읽기 켜짐" : "음성 꺼짐") +
+                "</button>"
+              : "") +
+            '          <button type="button" id="iv-finish-early-btn" class="btn btn-secondary btn-sm" ' +
+            (canFinishNow ? "" : "disabled") +
+            ">면접 종료하고 결과 보기</button>" +
+            "        </div>" +
+            "      </div>" +
+            '      <div class="stack-sm" style="gap:6px;">' +
+            '        <div class="row-between" style="font-size:12px;">' +
+            '          <span class="font-mono-tabular" style="font-weight:600;">질문 ' +
+            state.currentQuestionIndex +
+            " / " +
+            total +
+            ' <span style="font-weight:400;color:var(--text-muted);">· ' +
+            escapeHtml(stageName) +
+            "</span></span>" +
+            '          <span id="interview-elapsed-clock" class="font-mono-tabular" style="font-weight:600;color:var(--text-secondary);">경과 ' +
+            formatElapsed(state.elapsedSec) +
+            "</span>" +
+            "        </div>" +
+            '        <div class="progress-track"><div class="progress-fill" style="width:' +
+            progressPct +
+            '%;"></div></div>' +
+            "      </div>" +
+            "    </div>" +
+            '    <div class="chat-messages" id="chat-scroll-box">' +
+            messagesHtml +
+            streamingHtml +
+            thinkingHtml +
+            "    </div>" +
+            footerHtml +
+            "  </div>" +
+            "</div>";
+
+          var scrollBox = document.getElementById("chat-scroll-box");
+          if (scrollBox) {
+            scrollBox.scrollTop = scrollBox.scrollHeight;
+          }
+
+          var voiceBtn = document.getElementById("iv-voice-toggle");
+          if (voiceBtn) {
+            voiceBtn.onclick = function () {
+              state.voiceEnabled = !state.voiceEnabled;
+              if (!state.voiceEnabled) stopSpeaking();
+              renderInterview();
+            };
+          }
+
+          var finishBtn = document.getElementById("iv-finish-early-btn");
+          if (finishBtn) {
+            finishBtn.onclick = finishAndShowResult;
+          }
+
+          var viewResultBtn = document.getElementById("iv-view-result-btn");
+          if (viewResultBtn) {
+            viewResultBtn.onclick = finishAndShowResult;
+          }
+
+          var speakBtns = rootEl.querySelectorAll("[data-speak-idx]");
+          for (var i = 0; i < speakBtns.length; i++) {
+            speakBtns[i].onclick = function () {
+              var msg = state.messages[Number(this.getAttribute("data-speak-idx"))];
+              if (!msg) return;
+              if (state.isSpeaking) {
+                stopSpeaking();
+                renderInterview();
+              } else {
+                speakText(msg.text, true);
+              }
+            };
+          }
+
+          var micBtn = document.getElementById("iv-mic-btn");
+          if (micBtn) {
+            micBtn.onclick = function () {
+              if (state.isListening) stopListening();
+              else startListening();
+            };
+          }
+
+          var stopMicBtn = document.getElementById("iv-stop-mic-btn");
+          if (stopMicBtn) {
+            stopMicBtn.onclick = stopListening;
+          }
+
+          var chatInput = document.getElementById("chat-input-box");
+          var sendBtn = document.getElementById("iv-send-btn");
+          if (chatInput) {
+            chatInput.oninput = function (e) {
+              state.inputDraft = e.target.value;
+              if (sendBtn) {
+                sendBtn.disabled = state.isWaiting || !state.inputDraft.trim();
+              }
+            };
+            chatInput.onkeydown = function (e) {
+              if (e.key === "Enter" && !e.shiftKey && !e.isComposing) {
+                e.preventDefault();
+                handleSendAnswer();
+              }
+            };
+            if (!state.isWaiting && !state.isComplete) {
+              chatInput.focus();
+            }
+          }
+          if (sendBtn) {
+            sendBtn.onclick = handleSendAnswer;
+          }
+        }
+
+        /* =========================================================
+         * 13. Screen 4: Result & Print-to-PDF Report
+         * ========================================================= */
+        function populatePrintReport(rep, qaPairs, speech) {
+          var p = state.profile;
+          var r = state.research;
+          var modeSummary =
+            state.activeMode === "comprehensive"
+              ? "종합 면접(실제처럼)"
+              : "집중 연습(" + state.activeFocusedType + ")";
+
+          var fbHtml = rep.questionFeedbacks
+            .map(function (fb) {
+              var matched = null;
+              for (var i = 0; i < qaPairs.length; i++) {
+                if (qaPairs[i].questionNumber === fb.questionNumber) matched = qaPairs[i];
+              }
+              return (
+                '<div class="print-card">' +
+                '  <div style="font-weight:700;font-size:13px;margin-bottom:4px;">질문 ' +
+                fb.questionNumber +
+                ". " +
+                escapeHtml(fb.mainQuestion) +
+                "</div>" +
+                (matched && matched.mainAnswer
+                  ? '<div style="margin-top:4px;color:#334155;"><strong>내 답변:</strong> ' +
+                    escapeHtml(matched.mainAnswer) +
+                    "</div>"
+                  : "") +
+                (fb.followUpQuestion
+                  ? '<div style="margin-top:4px;color:#334155;"><strong>꼬리질문:</strong> ' +
+                    escapeHtml(fb.followUpQuestion) +
+                    (matched && matched.followUpAnswer
+                      ? " → <strong>내 답변:</strong> " + escapeHtml(matched.followUpAnswer)
+                      : "") +
+                    "</div>"
+                  : "") +
+                '  <div style="margin-top:6px;color:#0F766E;"><strong>좋았던 점:</strong> ' +
+                escapeHtml(fb.strengths) +
+                "</div>" +
+                '  <div style="margin-top:4px;color:#B45309;"><strong>아쉬운 점:</strong> ' +
+                escapeHtml(fb.improvements) +
+                "</div>" +
+                '  <div style="margin-top:6px;background:#F1F5F9;padding:8px;border-radius:4px;"><strong>더 나은 답변 예시:</strong> ' +
+                escapeHtml(fb.betterAnswerExample).replace(/\n/g, "<br/>") +
+                "</div>" +
+                "</div>"
+              );
+            })
+            .join("");
+
+          printReportEl.innerHTML =
+            '<div style="border-bottom:2px solid #1E3A5F;padding-bottom:12px;margin-bottom:18px;">' +
+            '  <div style="font-size:11px;color:#475569;">면접 코치 종합 리포트 · ' +
+            escapeHtml(new Date().toLocaleDateString("ko-KR")) +
+            "</div>" +
+            '  <h1 style="font-size:22px;margin:4px 0;">' +
+            escapeHtml(p.organization) +
+            " — " +
+            escapeHtml(p.role) +
+            "</h1>" +
+            '  <div style="font-size:12px;color:#334155;">연습 유형: ' +
+            escapeHtml(modeSummary) +
+            (state.selectedRound !== "전체 종합" ? " (" + escapeHtml(state.selectedRound) + ")" : "") +
+            "</div>" +
+            "</div>" +
+            (r
+              ? '<div class="print-section"><h2 style="font-size:15px;color:#1E3A5F;border-bottom:1px solid #CBD5E1;padding-bottom:4px;margin-bottom:8px;">1. 리서치 요약</h2>' +
+                "<p><strong>전형 흐름:</strong> " +
+                escapeHtml(r.processCard.summary) +
+                "</p><p><strong>분위기:</strong> " +
+                escapeHtml(r.atmosphereCard.summary) +
+                " (" +
+                escapeHtml(r.atmosphereCard.pressureLevel) +
+                ")</p></div>"
+              : "") +
+            '<div class="print-section"><h2 style="font-size:15px;color:#1E3A5F;border-bottom:1px solid #CBD5E1;padding-bottom:4px;margin-bottom:8px;">2. 종합 점수 및 말하기 분석</h2>' +
+            '<div class="print-card">' +
+            '<div style="font-size:18px;font-weight:700;color:#1E3A5F;">종합 점수: ' +
+            rep.overallScore +
+            " / 100점</div>" +
+            '<p style="margin-top:4px;">' +
+            escapeHtml(rep.overallComment) +
+            "</p>" +
+            '<div style="margin-top:8px;display:flex;justify-content:space-between;border-top:1px solid #E2E8F0;padding-top:6px;">' +
+            "<span>내용 충실도: " +
+            rep.scores.content +
+            "점</span><span>답변 구조: " +
+            rep.scores.structure +
+            "점</span><span>구체성: " +
+            rep.scores.specificity +
+            "점</span><span>태도·표현: " +
+            rep.scores.attitude +
+            "점</span></div></div>" +
+            (speech.totalTurnCount > 0
+              ? '<div class="print-card"><strong>말하기 분석:</strong> 평균 ' +
+                speech.avgCharsPerMin +
+                "자/분 (" +
+                escapeHtml(speech.speedAssessment) +
+                ") · 총 " +
+                speech.totalDurationSec +
+                "초 / " +
+                speech.totalCharCount +
+                "자 · 군더더기 " +
+                speech.totalFillers +
+                "회</div>"
+              : "") +
+            "<div><strong>다음에 연습할 것 3가지:</strong><ol>" +
+            rep.nextPracticeItems
+              .map(function (t) { return "<li>" + escapeHtml(t) + "</li>"; })
+              .join("") +
+            "</ol></div></div>" +
+            '<div class="print-section"><h2 style="font-size:15px;color:#1E3A5F;border-bottom:1px solid #CBD5E1;padding-bottom:4px;margin-bottom:8px;">3. 질문별 상세 피드백</h2>' +
+            fbHtml +
+            "</div>" +
+            '<div style="border-top:1px solid #CBD5E1;padding-top:8px;text-align:center;font-size:11px;color:#64748B;">후기는 개인 경험이며 실제 면접과 다를 수 있어요</div>';
+        }
+
+        function renderResult() {
+          var rep = state.report;
+          var qaPairs = state.qaPairs;
+          if (!rep) {
+            state.step = "input";
+            render();
+            return;
+          }
+
+          var speech = aggregateSpeech(qaPairs);
+          populatePrintReport(rep, qaPairs, speech);
+
+          var modeSummary =
+            state.activeMode === "comprehensive"
+              ? "종합 면접(실제처럼)"
+              : "집중 연습(" + state.activeFocusedType + ")";
+
+          var scoreItems = [
+            { key: "content", label: "내용 충실도", desc: "질문 의도 파악 및 핵심 메시지" },
+            { key: "structure", label: "답변 구조", desc: "두괄식 결론 · 근거 · 마무리" },
+            { key: "specificity", label: "구체성", desc: "실제 사례 및 본인 역할 제시" },
+            { key: "attitude", label: "태도 · 표현", desc: "일관성 및 명료한 전달력" },
+          ];
+
+          var scoreCardsHtml = scoreItems
+            .map(function (it) {
+              var sc = rep.scores[it.key];
+              return (
+                '<div class="inset-box">' +
+                '  <div class="row-between">' +
+                '    <span style="font-size:14px;font-weight:600;">' +
+                escapeHtml(it.label) +
+                "</span>" +
+                '    <span class="font-mono-tabular" style="font-size:14px;font-weight:700;color:var(--accent);">' +
+                sc +
+                "점</span>" +
+                "  </div>" +
+                '  <div class="score-bar-track"><div class="score-bar-fill" style="width:' +
+                Math.min(100, Math.max(0, sc)) +
+                '%;"></div></div>' +
+                '  <div style="margin-top:6px;font-size:12px;color:var(--text-muted);">' +
+                escapeHtml(it.desc) +
+                "</div>" +
+                "</div>"
+              );
+            })
+            .join("");
+
+          var speechCardHtml =
+            speech.totalTurnCount > 0
+              ? '<section class="surface-card stack-md">' +
+                '  <div class="row-between">' +
+                '    <h2 style="font-size:17px;font-weight:700;">말하기 속도 및 습관 분석</h2>' +
+                '    <span style="font-size:12px;color:var(--text-muted);">' +
+                (speech.voiceTurnCount > 0
+                  ? "음성 답변 " + speech.voiceTurnCount + "건 포함 · 총 " + speech.totalTurnCount + "건 기준"
+                  : "텍스트 입력 " + speech.totalTurnCount + "건 기준") +
+                "</span>" +
+                "  </div>" +
+                '  <div class="grid-3">' +
+                '    <div class="inset-box"><div style="font-size:12px;font-weight:600;color:var(--text-muted);">평균 말 속도</div><div style="margin-top:4px;"><span class="font-mono-tabular" style="font-size:24px;font-weight:700;color:var(--accent);">' +
+                speech.avgCharsPerMin +
+                '</span> <span style="font-size:12px;color:var(--text-muted);">자/분</span></div><div style="margin-top:6px;font-size:12px;color:var(--text-secondary);">' +
+                escapeHtml(speech.speedAssessment) +
+                "</div></div>" +
+                '    <div class="inset-box"><div style="font-size:12px;font-weight:600;color:var(--text-muted);">답변 시간 · 분량</div><div style="margin-top:4px;"><span class="font-mono-tabular" style="font-size:24px;font-weight:700;">' +
+                speech.totalDurationSec +
+                '초</span> <span style="color:var(--border-strong);">·</span> <span class="font-mono-tabular" style="font-size:18px;font-weight:600;color:var(--text-secondary);">' +
+                speech.totalCharCount +
+                '자</span></div><div style="margin-top:6px;font-size:12px;color:var(--text-secondary);">공백 제외 글자 수 기준</div></div>' +
+                '    <div class="inset-box"><div style="font-size:12px;font-weight:600;color:var(--text-muted);">군더더기 말 횟수</div><div style="margin-top:4px;"><span class="font-mono-tabular" style="font-size:24px;font-weight:700;">' +
+                speech.totalFillers +
+                '</span> <span style="font-size:12px;color:var(--text-muted);">회</span></div><div class="font-mono-tabular" style="margin-top:6px;font-size:12px;color:var(--text-secondary);">음 ' +
+                speech.fillerCounts.음 +
+                " · 어 " +
+                speech.fillerCounts.어 +
+                " · 그니까 " +
+                speech.fillerCounts.그니까 +
+                " · 약간 " +
+                speech.fillerCounts.약간 +
+                "</div></div>" +
+                "  </div>" +
+                "</section>"
+              : "";
+
+          var qFeedbacksHtml = rep.questionFeedbacks
+            .map(function (fb) {
+              var matched = null;
+              for (var i = 0; i < qaPairs.length; i++) {
+                if (qaPairs[i].questionNumber === fb.questionNumber) matched = qaPairs[i];
+              }
+              var checks = [
+                { label: "결론 먼저 제시", ok: fb.structureCheck.hasConclusionFirst },
+                { label: "타당한 근거", ok: fb.structureCheck.hasReasoning },
+                { label: "구체적 사례", ok: fb.structureCheck.hasConcreteExample },
+                { label: "깔끔한 마무리", ok: fb.structureCheck.hasClosing },
+              ];
+
+              var answerDetailsHtml = "";
+              if (matched) {
+                answerDetailsHtml =
+                  (matched.mainSpeechMetrics
+                    ? '<div class="font-mono-tabular" style="margin-top:8px;font-size:12px;color:var(--text-muted);">' +
+                      (matched.mainSpeechMetrics.usedVoice ? "음성 답변" : "텍스트 입력") +
+                      " · " +
+                      matched.mainSpeechMetrics.durationSec +
+                      "초 · " +
+                      matched.mainSpeechMetrics.charCount +
+                      "자 (" +
+                      matched.mainSpeechMetrics.charsPerMin +
+                      "자/분)" +
+                      (matched.mainSpeechMetrics.totalFillers > 0
+                        ? " · 군더더기 " + matched.mainSpeechMetrics.totalFillers + "회"
+                        : "") +
+                      "</div>"
+                    : "") +
+                  '<details style="margin-top:10px;font-size:13px;">' +
+                  '  <summary style="cursor:pointer;font-weight:600;color:var(--accent);">내가 작성한 답변 다시 보기</summary>' +
+                  '  <div class="inset-box stack-sm" style="margin-top:8px;font-size:13px;">' +
+                  "    <div><strong>본 답변:</strong> " +
+                  escapeHtml(matched.mainAnswer) +
+                  "</div>" +
+                  matched.followUps
+                    .map(function (f, fi) {
+                      return (
+                        '<div style="padding-top:6px;border-top:1px solid var(--border-hairline);">' +
+                        "<div><strong>꼬리질문" +
+                        (matched.followUps.length > 1 ? " " + (fi + 1) : "") +
+                        ":</strong> " +
+                        escapeHtml(f.question) +
+                        "</div>" +
+                        (f.answer
+                          ? "<div><strong>답변:</strong> " + escapeHtml(f.answer) + "</div>"
+                          : "") +
+                        "</div>"
+                      );
+                    })
+                    .join("") +
+                  "  </div>" +
+                  "</details>";
+              }
+
+              return (
+                '<article class="surface-card stack-md">' +
+                '  <div style="padding-bottom:14px;border-bottom:1px solid #F1F5F9;">' +
+                '    <div class="font-mono-tabular" style="font-size:12px;font-weight:600;color:var(--text-muted);margin-bottom:4px;">질문 ' +
+                fb.questionNumber +
+                (matched && matched.questionCategory ? " · " + escapeHtml(matched.questionCategory) : "") +
+                "</div>" +
+                '    <h3 style="font-size:17px;font-weight:700;">' +
+                escapeHtml(fb.mainQuestion) +
+                "</h3>" +
+                (fb.followUpQuestion
+                  ? '<p style="margin-top:6px;font-size:13px;color:var(--text-secondary);"><strong>꼬리질문:</strong> ' +
+                    escapeHtml(fb.followUpQuestion) +
+                    "</p>"
+                  : "") +
+                answerDetailsHtml +
+                "  </div>" +
+                "  <div>" +
+                '    <div style="font-size:12px;font-weight:600;color:var(--text-muted);margin-bottom:8px;">답변 구조 점검</div>' +
+                '    <div class="grid-4">' +
+                checks
+                  .map(function (c) {
+                    return (
+                      '<div class="check-item" data-ok="' +
+                      String(c.ok) +
+                      '">' +
+                      '<span style="color:' +
+                      (c.ok ? "var(--teal)" : "var(--text-subtle)") +
+                      ';display:inline-flex;">' +
+                      iconSvg(c.ok ? "check" : "minus", "icon-xs") +
+                      "</span>" +
+                      "<span>" +
+                      escapeHtml(c.label) +
+                      " · " +
+                      (c.ok ? "충족" : "보완 필요") +
+                      "</span></div>"
+                    );
+                  })
+                  .join("") +
+                "    </div>" +
+                "  </div>" +
+                '  <div class="grid-2">' +
+                '    <div class="inset-box"><div style="font-size:12px;font-weight:700;color:var(--teal);margin-bottom:6px;">좋았던 점</div><p style="font-size:14px;">' +
+                escapeHtml(fb.strengths) +
+                "</p></div>" +
+                '    <div class="inset-box"><div style="font-size:12px;font-weight:700;color:var(--amber);margin-bottom:6px;">아쉬운 점</div><p style="font-size:14px;">' +
+                escapeHtml(fb.improvements) +
+                "</p></div>" +
+                "  </div>" +
+                '  <div class="tint-box">' +
+                '    <div style="font-size:12px;font-weight:700;color:var(--accent);margin-bottom:6px;">내 경험을 바탕으로 다듬은 답변 예시</div>' +
+                '    <p style="font-size:14px;white-space:pre-wrap;">' +
+                escapeHtml(fb.betterAnswerExample) +
+                "</p>" +
+                "  </div>" +
+                "</article>"
+              );
+            })
+            .join("");
+
+          rootEl.innerHTML =
+            '<div class="container-wide stack-lg">' +
+            '  <div class="row-between" style="align-items:flex-end;">' +
+            "    <div>" +
+            '      <div style="font-size:13px;color:var(--text-muted);font-weight:500;">' +
+            escapeHtml(state.profile.organization) +
+            " · " +
+            escapeHtml(state.profile.role) +
+            " · " +
+            (state.selectedRound !== "전체 종합" ? escapeHtml(state.selectedRound) + " · " : "") +
+            escapeHtml(modeSummary) +
+            "</div>" +
+            '      <h1 class="page-title" style="margin-top:4px;">모의면접 피드백 리포트</h1>' +
+            "    </div>" +
+            '    <div class="row-wrap">' +
+            '      <button type="button" id="res-pdf-btn" class="btn btn-outline-accent">' +
+            iconSvg("download", "icon-xs") +
+            "PDF로 저장 / 인쇄" +
+            "      </button>" +
+            '      <button type="button" id="res-retry-btn" class="btn btn-secondary">' +
+            iconSvg("refresh", "icon-xs") +
+            "다시 면접하기" +
+            "      </button>" +
+            '      <button type="button" id="res-new-btn" class="btn btn-primary">다른 기관 준비하기</button>' +
+            "    </div>" +
+            "  </div>" +
+            '  <section class="surface-card">' +
+            '    <div class="grid-2" style="align-items:center;">' +
+            '      <div style="padding-right:16px;">' +
+            '        <div style="font-size:12px;font-weight:600;color:var(--text-muted);">종합 점수</div>' +
+            '        <div style="margin-top:4px;display:flex;align-items:baseline;gap:6px;">' +
+            '          <span class="font-mono-tabular" style="font-size:44px;font-weight:700;color:var(--accent);line-height:1.1;">' +
+            rep.overallScore +
+            '</span><span class="font-mono-tabular" style="font-size:14px;color:var(--text-subtle);">/ 100</span>' +
+            "        </div>" +
+            '        <p style="margin-top:12px;font-size:14px;color:var(--text-secondary);">' +
+            escapeHtml(rep.overallComment) +
+            "</p>" +
+            "      </div>" +
+            '      <div class="grid-2">' +
+            scoreCardsHtml +
+            "      </div>" +
+            "    </div>" +
+            "  </section>" +
+            speechCardHtml +
+            '  <section class="surface-card stack-md">' +
+            '    <h2 style="font-size:17px;font-weight:700;">다음에 연습할 것 3가지</h2>' +
+            '    <div class="grid-3">' +
+            rep.nextPracticeItems
+              .map(function (it, idx) {
+                return (
+                  '<div class="inset-box">' +
+                  '<div class="font-mono-tabular" style="font-size:12px;font-weight:700;color:var(--accent);margin-bottom:6px;">0' +
+                  (idx + 1) +
+                  '.</div><p style="font-size:14px;">' +
+                  escapeHtml(it) +
+                  "</p></div>"
+                );
+              })
+              .join("") +
+            "    </div>" +
+            "  </section>" +
+            '  <section class="stack-md">' +
+            '    <h2 style="font-size:18px;font-weight:700;">질문별 상세 피드백</h2>' +
+            qFeedbacksHtml +
+            "  </section>" +
+            '  <footer style="padding:16px 0 28px;text-align:center;font-size:13px;color:var(--text-muted);border-top:1px solid var(--border-hairline);">후기는 개인 경험이며 실제 면접과 다를 수 있어요</footer>' +
+            "</div>";
+
+          document.getElementById("res-pdf-btn").onclick = function () {
+            window.print();
+          };
+          document.getElementById("res-retry-btn").onclick = startMockInterview;
+          document.getElementById("res-new-btn").onclick = resetAll;
+        }
+
+        /* =========================================================
+         * 14. Master Render & Global Navigation
+         * ========================================================= */
+        function resetAll() {
+          stopSpeaking();
+          stopListening();
+          stopTimer();
+          if (state.streamTimerId) {
+            window.clearTimeout(state.streamTimerId);
+            state.streamTimerId = null;
+          }
+          state.step = "input";
+          state.profile = {
+            organization: "",
+            role: "",
+            interviewMode: "comprehensive",
+            focusedType: "인성",
+            interviewLength: "medium",
+            background: "",
+            pastedReviews: "",
+          };
+          state.inputError = null;
+          state.research = null;
+          state.qaPairs = [];
+          state.report = null;
+          state.turnMetrics = null;
+          render();
+        }
+
+        function render() {
+          updateHeaderNav();
+          renderMetricsHud();
+          if (state.step === "input") renderInput();
+          else if (state.step === "research") renderResearch();
+          else if (state.step === "interview") renderInterview();
+          else if (state.step === "result") renderResult();
+        }
+
+        var CLEAN_SOURCE_SNAPSHOT = "";
+        try {
+          if (document && document.documentElement) {
+            CLEAN_SOURCE_SNAPSHOT = "<!doctype html>\n" + document.documentElement.outerHTML;
+          }
+        } catch (e) {
+          CLEAN_SOURCE_SNAPSHOT = "";
+        }
+
+        function triggerHtmlFileDownload(htmlText) {
+          var blob = new Blob([htmlText], { type: "text/html;charset=utf-8" });
+          var url = URL.createObjectURL(blob);
+          var link = document.createElement("a");
+          link.href = url;
+          link.download = "index.html";
+          link.style.display = "none";
+          document.body.appendChild(link);
+          link.click();
+          window.setTimeout(function () {
+            if (link.parentNode) link.parentNode.removeChild(link);
+            URL.revokeObjectURL(url);
+          }, 1500);
+        }
+
+        function downloadStandaloneHtml() {
+          var btn = document.getElementById("header-download-btn");
+          var labelEl = document.getElementById("header-download-label");
+          var setLabel = function (txt) {
+            if (labelEl) labelEl.textContent = txt;
+          };
+          var finishFeedback = function () {
+            setLabel("다운로드 완료");
+            if (btn) btn.disabled = false;
+            window.setTimeout(function () {
+              setLabel("index.html 다운로드");
+            }, 2000);
+          };
+
+          if (btn) btn.disabled = true;
+          setLabel("준비 중...");
+
+          if (
+            typeof window.fetch === "function" &&
+            window.location &&
+            window.location.protocol !== "file:"
+          ) {
+            window
+              .fetch("./index.html", { cache: "no-store" })
+              .then(function (res) {
+                if (!res.ok) throw new Error("HTTP " + res.status);
+                return res.text();
+              })
+              .then(function (txt) {
+                if (txt && txt.indexOf("<!doctype html>") !== -1 && txt.indexOf("/@vite/client") === -1) {
+                  triggerHtmlFileDownload(txt);
+                  finishFeedback();
+                } else if (CLEAN_SOURCE_SNAPSHOT) {
+                  triggerHtmlFileDownload(CLEAN_SOURCE_SNAPSHOT);
+                  finishFeedback();
+                }
+              })
+              .catch(function () {
+                if (CLEAN_SOURCE_SNAPSHOT) {
+                  triggerHtmlFileDownload(CLEAN_SOURCE_SNAPSHOT);
+                }
+                finishFeedback();
+              });
+            return;
+          }
+
+          if (CLEAN_SOURCE_SNAPSHOT) {
+            triggerHtmlFileDownload(CLEAN_SOURCE_SNAPSHOT);
+          }
+          finishFeedback();
+        }
+
+        document.getElementById("brand-reset-btn").onclick = resetAll;
+        document.getElementById("header-reset-btn").onclick = resetAll;
+        document.getElementById("header-download-btn").onclick = downloadStandaloneHtml;
+
+        var navBtns = document.querySelectorAll("#desktop-nav .nav-step-btn");
+        for (var i = 0; i < navBtns.length; i++) {
+          navBtns[i].onclick = function () {
+            if (this.disabled) return;
+            var target = this.getAttribute("data-step");
+            if (target !== "interview") {
+              stopSpeaking();
+              stopListening();
+              stopTimer();
+            }
+            state.step = target;
+            render();
+          };
+        }
+
+        render();
+      })();
+    </script></body></html>
